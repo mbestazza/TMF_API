@@ -1,0 +1,706 @@
+consumes:
+- application/json
+definitions:
+  BankAccount:
+    properties:
+      accountHolder:
+        type: string
+      bIC:
+        type: string
+      domiciliation:
+        type: string
+      iBAN:
+        type: string
+    type: object
+  Characteristic:
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+    type: object
+  Contact:
+    properties:
+      contactMedium:
+        items:
+          $ref: '#/definitions/ContactMedium'
+        type: array
+      contactName:
+        type: string
+      contactType:
+        type: string
+      partyRoleType:
+        type: string
+      relatedParty:
+        $ref: '#/definitions/Reference'
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  ContactMedium:
+    properties:
+      medium:
+        $ref: '#/definitions/Medium'
+      preferred:
+        type: string
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  CreditCard:
+    properties:
+      creditCardHolder:
+        type: string
+      expirationDate:
+        format: date-time
+        type: string
+      number:
+        type: string
+      type:
+        type: string
+    type: object
+  Customer:
+    properties:
+      characteristic:
+        items:
+          $ref: '#/definitions/Characteristic'
+        type: array
+      contactMedium:
+        items:
+          $ref: '#/definitions/ContactMedium'
+        type: array
+      customerAccount:
+        items:
+          $ref: '#/definitions/CustomerAccount'
+        type: array
+      customerCreditProfile:
+        items:
+          $ref: '#/definitions/CustomerCreditProfile'
+        type: array
+      customerRank:
+        type: string
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+      paymentMean:
+        items:
+          $ref: '#/definitions/PaymentMean'
+        type: array
+      relatedParty:
+        $ref: '#/definitions/Reference'
+      status:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  CustomerAccount:
+    properties:
+      accountType:
+        type: string
+      contact:
+        items:
+          $ref: '#/definitions/Contact'
+        type: array
+      creditLimit:
+        type: string
+      customer:
+        $ref: '#/definitions/CustomerRef'
+      customerAccountBalance:
+        items:
+          $ref: '#/definitions/CustomerAccountBalance'
+        type: array
+      customerAccountRelationship:
+        items:
+          $ref: '#/definitions/CustomerAccountRelationship'
+        type: array
+      customerAccountTaxExemption:
+        items:
+          $ref: '#/definitions/CustomerAccountTaxExemption'
+        type: array
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      lastModified:
+        format: date-time
+        type: string
+      name:
+        type: string
+      paymentPlan:
+        items:
+          $ref: '#/definitions/PaymentPlan'
+        type: array
+      pin:
+        type: string
+      receivableBalance:
+        format: float
+        type: number
+      status:
+        type: string
+    type: object
+  CustomerAccountBalance:
+    properties:
+      amount:
+        format: float
+        type: number
+      status:
+        type: string
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  CustomerAccountRef:
+    properties:
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+  CustomerAccountRelationship:
+    properties:
+      customerAccount:
+        items:
+          $ref: '#/definitions/CustomerAccountRef'
+        type: array
+      relationshipType:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  CustomerAccountTaxExemption:
+    properties:
+      certificateNumber:
+        type: string
+      issuingJurisdiction:
+        type: string
+      reason:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  CustomerCreditProfile:
+    properties:
+      creditProfileDate:
+        format: date-time
+        type: string
+      creditRiskRating:
+        type: string
+      creditScore:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  CustomerRef:
+    properties:
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  Hub:
+    properties:
+      callback:
+        type: string
+      id:
+        type: string
+      query:
+        type: string
+    type: object
+  Medium:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      emailAddress:
+        type: string
+      number:
+        type: string
+      postcode:
+        type: string
+      stateOrProvince:
+        type: string
+      streetOne:
+        type: string
+      streetTwo:
+        type: string
+      type:
+        type: string
+    type: object
+  PaymentMean:
+    properties:
+      bankAccount:
+        $ref: '#/definitions/BankAccount'
+      creditCard:
+        $ref: '#/definitions/CreditCard'
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+      relatedParty:
+        $ref: '#/definitions/Reference'
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  PaymentMeanRef:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  PaymentPlan:
+    properties:
+      amount:
+        format: float
+        type: number
+      numberOfPayments:
+        type: string
+      paymentFrequency:
+        type: string
+      paymentMean:
+        $ref: '#/definitions/PaymentMeanRef'
+      priority:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  Reference:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+  ValidFor:
+    properties:
+      endDateTime:
+        format: date-time
+        type: string
+      startDateTime:
+        format: date-time
+        type: string
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: Provides a standardized mechanism for customer and customer account
+    management, such as creation, update, retrieval, deletion and notification of
+    events.
+  title: Customer Management
+  version: 14.5.1
+  x-lastModified: Oct 17, 2017 03:05AM PST
+paths:
+  /customer:
+    get:
+      operationId: customerFind
+      parameters:
+      - format: ""
+        in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of Customer
+          schema:
+            items:
+              $ref: '#/definitions/Customer'
+            type: array
+      summary: customerFind
+      tags:
+      - customer
+    post:
+      operationId: customerCreate
+      parameters:
+      - in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        "201":
+          description: Customer
+          schema:
+            $ref: '#/definitions/Customer'
+      summary: customerCreate
+      tags:
+      - customer
+  /customer/{customerId}:
+    delete:
+      operationId: customerDelete
+      parameters:
+      - in: path
+        name: customerId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: customerDelete
+      tags:
+      - customer
+    get:
+      operationId: customerGet
+      parameters:
+      - in: path
+        name: customerId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: Customer
+          schema:
+            $ref: '#/definitions/Customer'
+      summary: customerGet
+      tags:
+      - customer
+    patch:
+      operationId: customerPatch
+      parameters:
+      - in: path
+        name: customerId
+        required: true
+        type: string
+      - in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        "200":
+          description: Success Customer
+          schema:
+            $ref: '#/definitions/Customer'
+      summary: customerPatch
+      tags:
+      - customer
+    put:
+      operationId: customerUpdate
+      parameters:
+      - in: path
+        name: customerId
+        required: true
+        type: string
+      - in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        "201":
+          description: Success Customer
+          schema:
+            $ref: '#/definitions/Customer'
+      summary: customerUpdate
+      tags:
+      - customer
+  /customerAccount:
+    get:
+      operationId: customerAccountFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of CustomerAccount
+          schema:
+            items:
+              $ref: '#/definitions/CustomerAccount'
+            type: array
+      summary: customerAccountFind
+      tags:
+      - customerAccount
+    post:
+      operationId: customerAccountCreate
+      parameters:
+      - in: body
+        name: customerAccount
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerAccount'
+      responses:
+        "201":
+          description: CustomerAccount
+          schema:
+            $ref: '#/definitions/CustomerAccount'
+      summary: customerAccountCreate
+      tags:
+      - customerAccount
+  /customerAccount/{customerAccountId}:
+    delete:
+      operationId: customerAccountDelete
+      parameters:
+      - in: path
+        name: customerAccountId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: customerAccountDelete
+      tags:
+      - customerAccount
+    get:
+      operationId: customerAccountGet
+      parameters:
+      - in: path
+        name: customerAccountId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: CustomerAccount
+          schema:
+            $ref: '#/definitions/CustomerAccount'
+      summary: customerAccountGet
+      tags:
+      - customerAccount
+    patch:
+      operationId: customerAccountPatch
+      parameters:
+      - in: path
+        name: customerAccountId
+        required: true
+        type: string
+      - in: body
+        name: customerAccount
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerAccount'
+      responses:
+        "200":
+          description: Success CustomerAccount
+          schema:
+            $ref: '#/definitions/CustomerAccount'
+      summary: customerAccountPatch
+      tags:
+      - customerAccount
+    put:
+      operationId: customerAccountUpdate
+      parameters:
+      - in: path
+        name: customerAccountId
+        required: true
+        type: string
+      - in: body
+        name: customerAccount
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerAccount'
+      responses:
+        "201":
+          description: Success CustomerAccount
+          schema:
+            $ref: '#/definitions/CustomerAccount'
+      summary: customerAccountUpdate
+      tags:
+      - customerAccount
+  /hub:
+    get:
+      operationId: hubFind
+      responses:
+        "200":
+          description: List of Hub
+          schema:
+            items:
+              $ref: '#/definitions/Hub'
+            type: array
+      summary: hubFind
+      tags:
+      - hub
+    post:
+      operationId: hubCreate
+      parameters:
+      - in: body
+        name: hub
+        required: true
+        schema:
+          $ref: '#/definitions/Hub'
+      responses:
+        "201":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubCreate
+      tags:
+      - hub
+  /hub/{hubId}:
+    delete:
+      operationId: hubDelete
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: hubDelete
+      tags:
+      - hub
+    get:
+      operationId: hubGet
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubGet
+      tags:
+      - hub
+  /paymentMean:
+    get:
+      operationId: paymentMeanFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of PaymentMean
+          schema:
+            items:
+              $ref: '#/definitions/PaymentMean'
+            type: array
+      summary: paymentMeanFind
+      tags:
+      - paymentMean
+    post:
+      operationId: paymentMeanCreate
+      parameters:
+      - in: body
+        name: paymentMean
+        required: true
+        schema:
+          $ref: '#/definitions/PaymentMean'
+      responses:
+        "201":
+          description: PaymentMean
+          schema:
+            $ref: '#/definitions/PaymentMean'
+      summary: paymentMeanCreate
+      tags:
+      - paymentMean
+  /paymentMean/{paymentMeanId}:
+    delete:
+      operationId: paymentMeanDelete
+      parameters:
+      - in: path
+        name: paymentMeanId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: paymentMeanDelete
+      tags:
+      - paymentMean
+    get:
+      operationId: paymentMeanGet
+      parameters:
+      - in: path
+        name: paymentMeanId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: PaymentMean
+          schema:
+            $ref: '#/definitions/PaymentMean'
+      summary: paymentMeanGet
+      tags:
+      - paymentMean
+    patch:
+      operationId: paymentMeanPatch
+      parameters:
+      - in: path
+        name: paymentMeanId
+        required: true
+        type: string
+      - in: body
+        name: paymentMean
+        required: true
+        schema:
+          $ref: '#/definitions/PaymentMean'
+      responses:
+        "200":
+          description: Success PaymentMean
+          schema:
+            $ref: '#/definitions/PaymentMean'
+      summary: paymentMeanPatch
+      tags:
+      - paymentMean
+    put:
+      operationId: paymentMeanUpdate
+      parameters:
+      - in: path
+        name: paymentMeanId
+        required: true
+        type: string
+      - in: body
+        name: paymentMean
+        required: true
+        schema:
+          $ref: '#/definitions/PaymentMean'
+      responses:
+        "201":
+          description: Success PaymentMean
+          schema:
+            $ref: '#/definitions/PaymentMean'
+      summary: paymentMeanUpdate
+      tags:
+      - paymentMean
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"

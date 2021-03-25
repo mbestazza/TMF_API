@@ -1,0 +1,344 @@
+consumes:
+- application/json
+definitions:
+  Hub:
+    properties:
+      callback:
+        type: string
+      id:
+        type: string
+      query:
+        type: string
+    type: object
+  RatedProductUsage:
+    properties:
+      bucketValueConvertedInAmount:
+        format: float
+        type: number
+      currencyCode:
+        type: string
+      isBilled:
+        type: boolean
+      isTaxExempt:
+        type: boolean
+      offerTariffType:
+        type: string
+      productRef:
+        type: string
+      ratingAmountType:
+        type: string
+      ratingDate:
+        format: date-time
+        type: string
+      taxExcludedRatingAmount:
+        format: float
+        type: number
+      taxIncludedRatingAmount:
+        format: float
+        type: number
+      taxRate:
+        format: float
+        type: number
+      usageRatingTag:
+        type: string
+    type: object
+  Reference:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      role:
+        type: string
+    type: object
+  Usage:
+    properties:
+      date:
+        format: date-time
+        type: string
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      ratedProductUsage:
+        items:
+          $ref: '#/definitions/RatedProductUsage'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+      status:
+        enum:
+        - Received
+        - Rejected
+        - Recycled
+        - Guided
+        - Rated
+        - Rerate
+        - Billed
+        type: string
+      type:
+        type: string
+      usageCharacteristic:
+        items:
+          $ref: '#/definitions/UsageCharacteristic'
+        type: array
+      usageSpecification:
+        $ref: '#/definitions/UsageSpecification'
+    type: object
+  UsageCharacteristic:
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+    type: object
+  UsageSpecCharacteristic:
+    properties:
+      configurable:
+        type: boolean
+      description:
+        type: string
+      name:
+        type: string
+      usageSpecCharacteristicValue:
+        items:
+          $ref: '#/definitions/UsageSpecCharacteristicValue'
+        type: array
+    type: object
+  UsageSpecCharacteristicValue:
+    properties:
+      default:
+        type: boolean
+      value:
+        type: string
+      valueFrom:
+        type: string
+      valueTo:
+        type: string
+      valueType:
+        type: string
+    type: object
+  UsageSpecification:
+    properties:
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+      usageSpecCharacteristic:
+        items:
+          $ref: '#/definitions/UsageSpecCharacteristic'
+        type: array
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  ValidFor:
+    properties:
+      endDateTime:
+        format: date-time
+        type: string
+      startDateTime:
+        format: date-time
+        type: string
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: A user role is defined as the entity that defines a set of privileges
+    covering various functions and/or manageable assets. When a user is assigned  a
+    given role then it is actually allocated all the privileges defined for that roletype
+    and the corresponding permissions are created for that user
+  title: Usage Management
+  version: 14.5.1
+  x-lastModified: Oct 17, 2017 03:13AM PST
+paths:
+  /hub:
+    get:
+      operationId: hubFind
+      parameters: []
+      responses:
+        "200":
+          description: List of Hub
+          schema:
+            items:
+              $ref: '#/definitions/Hub'
+            type: array
+      summary: hubFind
+      tags:
+      - hub
+    post:
+      operationId: hubCreate
+      parameters:
+      - in: body
+        name: hub
+        required: true
+        schema:
+          $ref: '#/definitions/Hub'
+      responses:
+        "201":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubCreate
+      tags:
+      - hub
+  /hub/{hubId}:
+    delete:
+      operationId: hubDelete
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: hubDelete
+      tags:
+      - hub
+    get:
+      operationId: hubGet
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubGet
+      tags:
+      - hub
+  /usage:
+    post:
+      operationId: usageCreate
+      parameters:
+      - in: body
+        name: usage
+        required: true
+        schema:
+          $ref: '#/definitions/Usage'
+      responses:
+        "201":
+          description: Usage
+          schema:
+            $ref: '#/definitions/Usage'
+      summary: usageCreate
+      tags:
+      - usage
+  /usage/{usageId}:
+    delete:
+      operationId: usageDelete
+      parameters:
+      - in: path
+        name: usageId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: usageDelete
+      tags:
+      - usage
+    get:
+      operationId: usageGet
+      parameters:
+      - in: path
+        name: usageId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: Usage
+          schema:
+            $ref: '#/definitions/Usage'
+      summary: usageGet
+      tags:
+      - usage
+    put:
+      operationId: usageUpdate
+      parameters:
+      - in: path
+        name: usageId
+        required: true
+        type: string
+      - in: body
+        name: usage
+        required: true
+        schema:
+          $ref: '#/definitions/Usage'
+      responses:
+        "201":
+          description: Success Usage
+          schema:
+            $ref: '#/definitions/Usage'
+      summary: usageUpdate
+      tags:
+      - usage
+  /usageSpecification:
+    post:
+      operationId: usageSpecificationCreate
+      parameters:
+      - in: body
+        name: usageSpecification
+        required: true
+        schema:
+          $ref: '#/definitions/UsageSpecification'
+      responses:
+        "201":
+          description: UsageSpecification
+          schema:
+            $ref: '#/definitions/UsageSpecification'
+      summary: usageSpecificationCreate
+      tags:
+      - usageSpecification
+  /usageSpecification/{usageSpecificationId}:
+    delete:
+      operationId: usageSpecificationDelete
+      parameters:
+      - in: path
+        name: usageSpecificationId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: usageSpecificationDelete
+      tags:
+      - usageSpecification
+    get:
+      operationId: usageSpecificationGet
+      parameters:
+      - in: path
+        name: usageSpecificationId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: UsageSpecification
+          schema:
+            $ref: '#/definitions/UsageSpecification'
+      summary: usageSpecificationGet
+      tags:
+      - usageSpecification
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"

@@ -1,0 +1,365 @@
+consumes:
+- application/json
+definitions:
+  Hub:
+    properties:
+      callback:
+        type: string
+      query:
+        type: string
+    type: object
+  Note:
+    properties:
+      author:
+        type: string
+      date:
+        format: date-time
+        type: string
+      text:
+        type: string
+    type: object
+  OrderItem:
+    properties:
+      action:
+        type: string
+      appointment:
+        type: string
+      billingAccount:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+      id:
+        type: string
+      product:
+        $ref: '#/definitions/Product'
+      productOffering:
+        $ref: '#/definitions/ProductOffering'
+      state:
+        enum:
+        - Acknowledged
+        - InProgress
+        - Cancelled
+        - Completed
+        - Rejected
+        - Pending
+        - Held
+        - Failed
+        - Partial
+        type: string
+    type: object
+  Product:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      place:
+        $ref: '#/definitions/Reference'
+      productCharacteristic:
+        items:
+          $ref: '#/definitions/ProductCharacteristic'
+        type: array
+      productRelationship:
+        items:
+          $ref: '#/definitions/ProductRelationship'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+    type: object
+  ProductCharacteristic:
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+    type: object
+  ProductOffering:
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  ProductOrder:
+    properties:
+      category:
+        type: string
+      completionDate:
+        format: date-time
+        type: string
+      description:
+        type: string
+      expectedCompletionDate:
+        format: date-time
+        type: string
+      externalId:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      notificationContact:
+        type: string
+      orderDate:
+        format: date-time
+        type: string
+      orderItem:
+        items:
+          $ref: '#/definitions/OrderItem'
+        type: array
+      priority:
+        type: string
+      relatedParty:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+      requestedCompletionDate:
+        format: date-time
+        type: string
+      requestedStartDate:
+        format: date-time
+        type: string
+      state:
+        enum:
+        - Acknowledged
+        - InProgress
+        - Cancelled
+        - Completed
+        - Rejected
+        - Pending
+        - Held
+        - Failed
+        - Partial
+        type: string
+    type: object
+  ProductOrderIn:
+    properties:
+      category:
+        type: string
+      completionDate:
+        format: date-time
+        type: string
+      description:
+        type: string
+      expectedCompletionDate:
+        format: date-time
+        type: string
+      externalId:
+        type: string
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      notificationContact:
+        type: string
+      orderDate:
+        format: date-time
+        type: string
+      priority:
+        type: string
+      relatedParty:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+      requestedCompletionDate:
+        format: date-time
+        type: string
+      requestedStartDate:
+        format: date-time
+        type: string
+      state:
+        enum:
+        - Acknowledged
+        - InProgress
+        - Cancelled
+        - Completed
+        - Rejected
+        - Pending
+        - Held
+        - Failed
+        - Partial
+        type: string
+    type: object
+  ProductRelationship:
+    properties:
+      product:
+        $ref: '#/definitions/Product'
+      type:
+        enum:
+        - reliesOn
+        - bundled
+        - targets
+        - isTargeted
+        type: string
+    type: object
+  Reference:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: Provides a standardized mechanism for placing a product order with
+    all of the necessary order parameters. The API consists of a simple set of operations
+    that interact with CRM/Order negotiation systems in a consistent manner. A product
+    order is created based on a product offering that is defined in a catalog. The
+    product offering identifies the product or set of products that are available
+    to a customer, and includes characteristics such as pricing, product options and
+    market.
+  title: Product Ordering
+  version: 16.5.1
+  x-lastModified: Oct 17, 2017 03:10AM PST
+paths:
+  /hub:
+    get:
+      operationId: hubFind
+      parameters: []
+      responses:
+        "200":
+          description: List of Hub
+          schema:
+            items:
+              $ref: '#/definitions/Hub'
+            type: array
+      summary: hubFind
+      tags:
+      - hub
+    post:
+      operationId: hubCreate
+      parameters:
+      - in: body
+        name: hub
+        required: true
+        schema:
+          $ref: '#/definitions/Hub'
+      responses:
+        "201":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubCreate
+      tags:
+      - hub
+  /hub/{hubId}:
+    delete:
+      operationId: hubDelete
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: hubDelete
+      tags:
+      - hub
+    get:
+      operationId: hubGet
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubGet
+      tags:
+      - hub
+  /productOrder:
+    get:
+      operationId: productOrderFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of ProductOrder
+          schema:
+            items:
+              $ref: '#/definitions/ProductOrder'
+            type: array
+      summary: productOrderFind
+      tags:
+      - productOrder
+    post:
+      operationId: productOrderInCreate
+      parameters:
+      - in: body
+        name: productOrder
+        required: true
+        schema:
+          $ref: '#/definitions/ProductOrderIn'
+      responses:
+        "201":
+          description: ProductOrderIn
+          schema:
+            $ref: '#/definitions/ProductOrderIn'
+      summary: productOrderInCreate
+      tags:
+      - productOrder
+  /productOrder/{productOrderId}:
+    get:
+      operationId: productOrderGet
+      parameters:
+      - in: path
+        name: productOrderId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: ProductOrder
+          schema:
+            $ref: '#/definitions/ProductOrder'
+      summary: productOrderGet
+      tags:
+      - productOrder
+    patch:
+      operationId: productOrderPatch
+      parameters:
+      - in: path
+        name: productOrderId
+        required: true
+        type: string
+      - in: body
+        name: productOrder
+        required: true
+        schema:
+          $ref: '#/definitions/ProductOrder'
+      responses:
+        "200":
+          description: Success ProductOrder
+          schema:
+            $ref: '#/definitions/ProductOrder'
+      summary: productOrderPatch
+      tags:
+      - productOrder
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"

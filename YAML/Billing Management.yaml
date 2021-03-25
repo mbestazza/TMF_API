@@ -1,0 +1,644 @@
+consumes:
+- application/json
+definitions:
+  AppliedCustomerBillingCharge:
+    properties:
+      appliedCustomerBillingTaxRate:
+        items:
+          $ref: '#/definitions/AppliedCustomerBillingTaxRate'
+        type: array
+      currencyCode:
+        type: string
+      date:
+        format: date-time
+        type: string
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      period:
+        items:
+          $ref: '#/definitions/Period'
+        type: array
+      productSpecification:
+        items:
+          $ref: '#/definitions/ProductSpecification'
+        type: array
+      serviceId:
+        items:
+          $ref: '#/definitions/ServiceId'
+        type: array
+      taxExcludedAmount:
+        format: float
+        type: number
+      taxIncludedAmount:
+        format: float
+        type: number
+      type:
+        type: string
+    type: object
+  AppliedCustomerBillingTaxRate:
+    properties:
+      amount:
+        format: float
+        type: number
+      taxCategory:
+        type: string
+    type: object
+  BillingAccount:
+    properties:
+      billingAccountBalance:
+        items:
+          $ref: '#/definitions/BillingAccountBalance'
+        type: array
+      currency:
+        $ref: '#/definitions/Currency'
+      customerAccount:
+        $ref: '#/definitions/Reference'
+      customerBillFormat:
+        $ref: '#/definitions/CustomerBillFormat'
+      customerBillPresentationMedia:
+        $ref: '#/definitions/Reference'
+      customerBillingCycleSpecification:
+        $ref: '#/definitions/CustomerBillingCycleSpecification'
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+      paymentMean:
+        $ref: '#/definitions/Reference'
+      ratingType:
+        type: string
+      relatedParty:
+        items:
+          $ref: '#/definitions/Reference'
+        type: array
+      state:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  BillingAccountBalance:
+    properties:
+      amount:
+        format: float
+        type: number
+      status:
+        type: string
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  Currency:
+    properties:
+      currencyCode:
+        type: string
+    type: object
+  CustomerBillFormat:
+    properties:
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+    type: object
+  CustomerBillPresentationMedia:
+    properties:
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+    type: object
+  CustomerBillingCycleSpecification:
+    properties:
+      billingDateShift:
+        format: int32
+        type: integer
+      frequency:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      name:
+        type: string
+    type: object
+  Hub:
+    properties:
+      callback:
+        type: string
+      id:
+        type: string
+      query:
+        type: string
+    type: object
+  Issuer:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      taxRegistration:
+        $ref: '#/definitions/TaxRegistration'
+    type: object
+  Period:
+    properties:
+      endPeriod:
+        format: date-time
+        type: string
+      startPeriod:
+        format: date-time
+        type: string
+    type: object
+  ProductSpecification:
+    properties:
+      name:
+        type: string
+      productNumber:
+        type: string
+    type: object
+  Receiver:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      taxRegistration:
+        $ref: '#/definitions/TaxRegistration'
+    type: object
+  Reference:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+  ServiceId:
+    properties:
+      id:
+        type: string
+      type:
+        type: string
+    type: object
+  SettlementMethod:
+    properties:
+      code:
+        type: string
+      label:
+        type: string
+    type: object
+  SettlementNoteAdvice:
+    properties:
+      currencyCode:
+        type: string
+      date:
+        format: date-time
+        type: string
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      issuer:
+        $ref: '#/definitions/Issuer'
+      paymentDueDate:
+        format: date-time
+        type: string
+      receiver:
+        $ref: '#/definitions/Receiver'
+      settlementMethod:
+        $ref: '#/definitions/SettlementMethod'
+      settlementNoteImage:
+        $ref: '#/definitions/SettlementNoteImage'
+      settlementNoteItem:
+        items:
+          $ref: '#/definitions/SettlementNoteItem'
+        type: array
+      taxDate:
+        format: date-time
+        type: string
+      taxExcludedAmount:
+        format: float
+        type: number
+      taxIncludedAmount:
+        format: float
+        type: number
+      taxItem:
+        items:
+          $ref: '#/definitions/TaxItem'
+        type: array
+    type: object
+  SettlementNoteImage:
+    properties:
+      imageFileName:
+        type: string
+      imageFileURL:
+        type: string
+      imageFormat:
+        type: string
+      imageSize:
+        type: string
+    type: object
+  SettlementNoteItem:
+    properties:
+      itemId:
+        type: string
+      itemLabel:
+        type: string
+      itemNumber:
+        type: string
+      period:
+        $ref: '#/definitions/Period'
+      productSpecification:
+        $ref: '#/definitions/ProductSpecification'
+      quantity:
+        type: string
+      taxItem:
+        items:
+          $ref: '#/definitions/TaxItem'
+        type: array
+    type: object
+  TaxItem:
+    properties:
+      taxAmount:
+        format: float
+        type: number
+      taxCategory:
+        type: string
+      taxRate:
+        format: float
+        type: number
+    type: object
+  TaxRegistration:
+    properties:
+      number:
+        type: string
+    type: object
+  ValidFor:
+    properties:
+      endDateTime:
+        format: date-time
+        type: string
+      startDateTime:
+        format: date-time
+        type: string
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: Provides standardized mechanisms for billing account, bill item and
+    settlement note advice management either in B2B or B2B2C contexts.
+  title: Billing Management
+  version: 14.5.1
+  x-lastModified: Oct 17, 2017 02:55AM PST
+paths:
+  /appliedCustomerBillingCharge:
+    get:
+      operationId: appliedCustomerBillingChargeFind
+      parameters:
+      - format: ""
+        in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of AppliedCustomerBillingCharge
+          schema:
+            items:
+              $ref: '#/definitions/AppliedCustomerBillingCharge'
+            type: array
+      summary: appliedCustomerBillingChargeFind
+      tags:
+      - appliedCustomerBillingCharge
+    post:
+      operationId: appliedCustomerBillingChargeCreate
+      parameters:
+      - in: body
+        name: appliedCustomerBillingCharge
+        required: true
+        schema:
+          $ref: '#/definitions/AppliedCustomerBillingCharge'
+      responses:
+        "201":
+          description: AppliedCustomerBillingCharge
+          schema:
+            $ref: '#/definitions/AppliedCustomerBillingCharge'
+      summary: appliedCustomerBillingChargeCreate
+      tags:
+      - appliedCustomerBillingCharge
+  /appliedCustomerBillingCharge/{appliedCustomerBillingChargeId}:
+    get:
+      operationId: appliedCustomerBillingChargeGet
+      parameters:
+      - in: path
+        name: appliedCustomerBillingChargeId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: AppliedCustomerBillingCharge
+          schema:
+            $ref: '#/definitions/AppliedCustomerBillingCharge'
+      summary: appliedCustomerBillingChargeGet
+      tags:
+      - appliedCustomerBillingCharge
+  /billingAccount:
+    get:
+      operationId: billingAccountFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of BillingAccount
+          schema:
+            items:
+              $ref: '#/definitions/BillingAccount'
+            type: array
+      summary: billingAccountFind
+      tags:
+      - billingAccount
+    post:
+      operationId: billingAccountCreate
+      parameters:
+      - in: body
+        name: billingAccount
+        required: true
+        schema:
+          $ref: '#/definitions/BillingAccount'
+      responses:
+        "201":
+          description: BillingAccount
+          schema:
+            $ref: '#/definitions/BillingAccount'
+      summary: billingAccountCreate
+      tags:
+      - billingAccount
+  /billingAccount/{billingAccountId}:
+    get:
+      operationId: billingAccountGet
+      parameters:
+      - in: path
+        name: billingAccountId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: BillingAccount
+          schema:
+            $ref: '#/definitions/BillingAccount'
+      summary: billingAccountGet
+      tags:
+      - billingAccount
+    patch:
+      operationId: billingAccountPatch
+      parameters:
+      - in: path
+        name: billingAccountId
+        required: true
+        type: string
+      - in: body
+        name: billingAccount
+        required: true
+        schema:
+          $ref: '#/definitions/BillingAccount'
+      responses:
+        "200":
+          description: Success BillingAccount
+          schema:
+            $ref: '#/definitions/BillingAccount'
+      summary: billingAccountPatch
+      tags:
+      - billingAccount
+  /customerBillFormat:
+    get:
+      operationId: customerBillFormatFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of CustomerBillFormat
+          schema:
+            items:
+              $ref: '#/definitions/CustomerBillFormat'
+            type: array
+      summary: customerBillFormatFind
+      tags:
+      - customerBillFormat
+  /customerBillFormat/{customerBillFormatId}:
+    get:
+      operationId: customerBillFormatGet
+      parameters:
+      - in: path
+        name: customerBillFormatId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: CustomerBillFormat
+          schema:
+            $ref: '#/definitions/CustomerBillFormat'
+      summary: customerBillFormatGet
+      tags:
+      - customerBillFormat
+  /customerBillPresentationMedia:
+    get:
+      operationId: customerBillPresentationMediaFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of CustomerBillPresentationMedia
+          schema:
+            items:
+              $ref: '#/definitions/CustomerBillPresentationMedia'
+            type: array
+      summary: customerBillPresentationMediaFind
+      tags:
+      - customerBillPresentationMedia
+  /customerBillPresentationMedia/{customerBillPresentationMediaId}:
+    get:
+      operationId: customerBillPresentationMediaGet
+      parameters:
+      - in: path
+        name: customerBillPresentationMediaId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: CustomerBillPresentationMedia
+          schema:
+            $ref: '#/definitions/CustomerBillPresentationMedia'
+      summary: customerBillPresentationMediaGet
+      tags:
+      - customerBillPresentationMedia
+  /customerBillingCycleSpecification:
+    get:
+      operationId: customerBillingCycleSpecificationFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of CustomerBillingCycleSpecification
+          schema:
+            items:
+              $ref: '#/definitions/CustomerBillingCycleSpecification'
+            type: array
+      summary: customerBillingCycleSpecificationFind
+      tags:
+      - customerBillingCycleSpecification
+  /customerBillingCycleSpecification/{customerBillingCycleSpecificationId}:
+    get:
+      operationId: customerBillingCycleSpecificationGet
+      parameters:
+      - in: path
+        name: customerBillingCycleSpecificationId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: CustomerBillingCycleSpecification
+          schema:
+            $ref: '#/definitions/CustomerBillingCycleSpecification'
+      summary: customerBillingCycleSpecificationGet
+      tags:
+      - customerBillingCycleSpecification
+  /hub:
+    get:
+      operationId: hubFind
+      responses:
+        "200":
+          description: List of Hub
+          schema:
+            items:
+              $ref: '#/definitions/Hub'
+            type: array
+      summary: hubFind
+      tags:
+      - hub
+    post:
+      operationId: hubCreate
+      parameters:
+      - in: body
+        name: hub
+        required: true
+        schema:
+          $ref: '#/definitions/Hub'
+      responses:
+        "201":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubCreate
+      tags:
+      - hub
+  /hub/{hubId}:
+    delete:
+      operationId: hubDelete
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: hubDelete
+      tags:
+      - hub
+    get:
+      operationId: hubGet
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubGet
+      tags:
+      - hub
+  /settlementNoteAdvice:
+    get:
+      operationId: settlementNoteAdviceFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of SettlementNoteAdvice
+          schema:
+            items:
+              $ref: '#/definitions/SettlementNoteAdvice'
+            type: array
+      summary: settlementNoteAdviceFind
+      tags:
+      - settlementNoteAdvice
+  /settlementNoteAdvice/{settlementNoteAdviceId}:
+    get:
+      operationId: settlementNoteAdviceGet
+      parameters:
+      - in: path
+        name: settlementNoteAdviceId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: SettlementNoteAdvice
+          schema:
+            $ref: '#/definitions/SettlementNoteAdvice'
+      summary: settlementNoteAdviceGet
+      tags:
+      - settlementNoteAdvice
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"

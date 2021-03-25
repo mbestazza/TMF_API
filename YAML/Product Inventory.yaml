@@ -1,0 +1,408 @@
+consumes:
+- application/json
+definitions:
+  Agreement:
+    properties:
+      herf:
+        type: string
+      id:
+        type: string
+    type: object
+  BillingAccount:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  Hub:
+    properties:
+      callback:
+        type: string
+      id:
+        type: string
+      query:
+        type: string
+    type: object
+  Price:
+    properties:
+      amount:
+        format: float
+        type: number
+      currency:
+        type: string
+    type: object
+  Product:
+    properties:
+      agreement:
+        items:
+          $ref: '#/definitions/Agreement'
+        type: array
+      billingAccount:
+        items:
+          $ref: '#/definitions/BillingAccount'
+        type: array
+      description:
+        type: string
+      href:
+        type: string
+      id:
+        format: int64
+        type: integer
+      isBundle:
+        type: string
+      isCustomerVisible:
+        type: string
+      name:
+        type: string
+      orderDate:
+        format: date-time
+        type: string
+      place:
+        type: string
+      productCharacteristic:
+        items:
+          $ref: '#/definitions/ProductCharacteristic'
+        type: array
+      productOffering:
+        $ref: '#/definitions/ProductOffering'
+      productPrice:
+        items:
+          $ref: '#/definitions/ProductPrice'
+        type: array
+      productRelationship:
+        items:
+          $ref: '#/definitions/ProductRelationship'
+        type: array
+      productSerialNumber:
+        type: string
+      productSpecification:
+        $ref: '#/definitions/ProductSpecification'
+      realizingResource:
+        items:
+          $ref: '#/definitions/RealizingResource'
+        type: array
+      realizingService:
+        items:
+          $ref: '#/definitions/RealizingService'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedParty'
+        type: array
+      startDate:
+        format: date-time
+        type: string
+      status:
+        enum:
+        - Created
+        - Pending_active
+        - Aborted
+        - Cancelled
+        - Active
+        - Pending_terminate
+        - Terminated
+        - Suspended
+        type: string
+      terminationDate:
+        format: date-time
+        type: string
+    required:
+    - status
+    type: object
+  ProductCharacteristic:
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+    type: object
+  ProductOffering:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  ProductPrice:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        $ref: '#/definitions/Price'
+      priceType:
+        type: string
+      recurringChargePeriod:
+        type: string
+      unitOfMeasure:
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+    required:
+    - price
+    - validFor
+    type: object
+  ProductRef:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  ProductRelationship:
+    properties:
+      product:
+        $ref: '#/definitions/ProductRef'
+      type:
+        type: string
+    required:
+    - product
+    type: object
+  ProductSpecification:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  RealizingResource:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  RealizingService:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  RelatedParty:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      role:
+        type: string
+    type: object
+  TimePeriod:
+    properties:
+      endDateTime:
+        format: date-time
+        type: string
+      startDateTime:
+        format: date-time
+        type: string
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: Provides standardized mechanism for product inventory management such
+    as creation, partial or full update and retrieval of the representation of a product
+    in the inventory. It also allows the notification of events related to product
+    lifecycle.
+  title: Product Inventory
+  version: 16.5.1
+  x-lastModified: Oct 17, 2017 03:09AM PST
+paths:
+  /hub:
+    get:
+      deprecated: false
+      description: ""
+      operationId: hubFind
+      responses:
+        "200":
+          description: List of Hub
+          schema:
+            items:
+              $ref: '#/definitions/Hub'
+            type: array
+      summary: hubFind
+      tags:
+      - hub
+    post:
+      deprecated: false
+      description: ""
+      operationId: hubCreate
+      parameters:
+      - in: body
+        name: hub
+        required: true
+        schema:
+          $ref: '#/definitions/Hub'
+      responses:
+        "201":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubCreate
+      tags:
+      - hub
+  /hub/{hubId}:
+    delete:
+      deprecated: false
+      description: ""
+      operationId: hubDelete
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: hubDelete
+      tags:
+      - hub
+    get:
+      deprecated: false
+      description: ""
+      operationId: hubGet
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubGet
+      tags:
+      - hub
+  /product:
+    get:
+      deprecated: false
+      description: ""
+      operationId: productFind
+      parameters:
+      - description: ""
+        in: query
+        name: fields
+        required: false
+        type: string
+      responses:
+        "200":
+          description: List of Product
+          schema:
+            items:
+              $ref: '#/definitions/Product'
+            type: array
+      summary: productFind
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      deprecated: false
+      description: ""
+      operationId: productCreate
+      parameters:
+      - in: body
+        name: product
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        "201":
+          description: Product
+          schema:
+            $ref: '#/definitions/Product'
+      summary: productCreate
+      tags:
+      - product
+  /product/{productId}:
+    delete:
+      deprecated: false
+      description: ""
+      operationId: productDelete
+      parameters:
+      - in: path
+        name: productId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: productDelete
+      tags:
+      - product
+    get:
+      deprecated: false
+      description: ""
+      operationId: productGet
+      parameters:
+      - in: path
+        name: productId
+        required: true
+        type: string
+      - description: ""
+        in: query
+        name: fields
+        required: false
+        type: string
+      responses:
+        "200":
+          description: Product
+          schema:
+            $ref: '#/definitions/Product'
+      summary: productGet
+      tags:
+      - product
+    patch:
+      deprecated: false
+      description: ""
+      operationId: productPatch
+      parameters:
+      - in: path
+        name: productId
+        required: true
+        type: string
+      - in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        "200":
+          description: Success Product
+          schema:
+            $ref: '#/definitions/Product'
+      summary: productPatch
+      tags:
+      - product
+    put:
+      deprecated: false
+      description: ""
+      operationId: productUpdate
+      parameters:
+      - in: path
+        name: productId
+        required: true
+        type: string
+      - in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        "201":
+          description: Success Product
+          schema:
+            $ref: '#/definitions/Product'
+      summary: productUpdate
+      tags:
+      - product
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"

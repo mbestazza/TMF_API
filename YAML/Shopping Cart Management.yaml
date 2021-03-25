@@ -1,0 +1,827 @@
+consumes:
+- application/json
+definitions:
+  BundledProductOfferingRef:
+    description: BundledProductOffering Reference. A type of ProductOffering that
+      belongs to a grouping of ProductOfferings made available to the market. It inherits
+      of all attributes of ProductOffering.
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/BundledProductOfferingRef'
+        type: array
+      href:
+        description: Reference of the product offering
+        type: string
+      id:
+        description: Unique identifier of the product offering
+        type: string
+      name:
+        description: Name of the product offering
+        type: string
+    type: object
+  CartItem:
+    description: An identified part of the shopping cart. A shopping cart  is decomposed
+      into one or more shopping cart item. Cart item represents a product offering
+      or bundled product offering that user wish to purchase, as well as the pricing
+      of the product offering, reference to product in case of configured characteristic
+      or installation address. Cart items can be related to other cart item to related
+      bundled offerings or reference cart Items to a shipping options
+    properties:
+      action:
+        description: Can be "add" / "modify" / "no_change"/ "delete"
+        type: string
+      cardItem:
+        items:
+          $ref: '#/definitions/CartItem'
+        type: array
+      cartItemRelationship:
+        items:
+          $ref: '#/definitions/CartItemRelationship'
+        type: array
+      id:
+        description: Identifier of the cart item (generally it is a sequence number
+          01, 02, 03, ...) in the shopping cart
+        type: string
+      itemPrice:
+        items:
+          $ref: '#/definitions/CartPrice'
+        type: array
+      product:
+        $ref: '#/definitions/ProductRefOrValue'
+      productOffering:
+        $ref: '#/definitions/ProductOfferingRef'
+      quantity:
+        description: Quantity of cart items
+        type: integer
+      status:
+        description: status of cart item. e.g "Active" , "SavedForLater".
+        type: string
+      totalItemPrice:
+        items:
+          $ref: '#/definitions/CartPrice'
+        type: array
+    type: object
+  CartItemRef:
+    description: CartIIem reference. A CartItem is an identified part of the shopping
+      cart.
+    properties:
+      id:
+        description: Unique identifier of the channel
+        type: string
+    type: object
+  CartItemRelationship:
+    description: Relationship among cart items mainly other than hierarchical relationships
+      such as "RelyOn", "DependentOn", "Shipping" etc.
+    properties:
+      cartItem:
+        items:
+          $ref: '#/definitions/CartItemRef'
+        type: array
+      id:
+        type: string
+      type:
+        description: Type of the order item relationship
+        type: string
+    type: object
+  CartPrice:
+    description: An amount, usually of money, that represents the actual price paid
+      by the customer for this item. May represent the total price of the shopping
+      cart or the total of the cart item depending on the relation
+    properties:
+      description:
+        description: A narrative that explains in detail the semantics of this order
+          item price.
+        type: string
+      name:
+        description: A short descriptive name such as "Subscription price".
+        type: string
+      price:
+        $ref: '#/definitions/Price'
+      priceAlteration:
+        items:
+          $ref: '#/definitions/PriceAlteration'
+        type: array
+      priceType:
+        description: A category that describes the price, such as recurring, discount,
+          allowance, penalty, and so forth
+        type: string
+      recurringChargePeriod:
+        description: Could be month, week...
+        type: string
+      unitOfMeasure:
+        description: Could be minutes, GB...
+        type: string
+    type: object
+  ContactMedium:
+    description: Indicates the contact medium that could be used to contact the party.
+    properties:
+      characteristic:
+        $ref: '#/definitions/MediumCharacteristic'
+      preferred:
+        description: If true, indicates that is the preferred contact medium
+        type: boolean
+      type:
+        description: 'Type of the contact medium, such as: email address, telephone
+          number, postal address'
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The time period that the contact medium is valid for
+    type: object
+  Error:
+    properties:
+      code:
+        description: An integer coding the error type. This is given to caller so
+          he can translate them if required.
+        type: integer
+      description:
+        description: (optional) A long localized error description if needed. It can
+          contain precise information about which parameter is missing, or what are
+          the identifier acceptable values.
+        type: string
+      infoURL:
+        description: (optional) A URL to online documentation that provides more information
+          about the error.
+        type: string
+      message:
+        description: A short localized string that describes the error.
+        type: string
+    required:
+    - code
+    - message
+  EventSubscription:
+    properties:
+      callback:
+        description: The callback being registered.
+        type: string
+      id:
+        description: Id of the listener
+        type: string
+      query:
+        description: additional data to be passed
+        type: string
+    required:
+    - id
+    - callback
+  EventSubscriptionInput:
+    properties:
+      callback:
+        description: The callback being registered.
+        type: string
+      query:
+        description: additional data to be passed
+        type: string
+    required:
+    - callback
+  MediumCharacteristic:
+    description: Describes the contact medium characteristics that could be used to
+      contact a party (an individual or an organization)
+    properties:
+      city:
+        description: The city
+        type: string
+      country:
+        description: The country
+        type: string
+      emailAddress:
+        description: Full email address in standard format
+        type: string
+      faxNumber:
+        description: The fax number of the contact
+        type: string
+      phoneNumber:
+        description: The primary phone number of the contact
+        type: string
+      postCode:
+        description: Postcode
+        type: string
+      stateOrProvince:
+        description: State or province
+        type: string
+      street1:
+        description: Describes the street
+        type: string
+      street2:
+        description: Complementary street description
+        type: string
+      type:
+        description: Type of medium (fax, mobile phone...)
+        type: string
+    type: object
+  Money:
+    description: A base / value business entity used to represent money
+    properties:
+      unit:
+        description: Currency (ISO4217 norm uses 3 letters to define the currency)
+        type: string
+      value:
+        description: A positive floating point number
+        type: float
+    type: object
+  Note:
+    description: Extra information about the ticket or a product order
+    properties:
+      author:
+        description: Author of the note
+        type: string
+      date:
+        description: Date of the note
+        format: date-time
+        type: string
+      text:
+        description: Text of the note
+        type: string
+    type: object
+  PlaceRef:
+    description: Place reference. Place defines the places where the products are
+      sold or delivered.
+    properties:
+      href:
+        description: Unique reference of the place
+        type: string
+      id:
+        description: Unique identifier of the place
+        type: string
+      name:
+        description: A user-friendly name for the place, such as "Paris Store", "London
+          Store", "Main Home"
+        type: string
+      role:
+        description: 'Role of the place (for instance: ''home delivery'', ''shop retrieval'')'
+        type: string
+    type: object
+  Price:
+    description: Provides all amounts (tax included, duty free, tax rate), used currency
+      and percentage to apply for Price Alteration.
+    properties:
+      dutyFreeAmount:
+        $ref: '#/definitions/Money'
+        description: All taxes excluded amount (expressed in the given currency)
+      percentage:
+        description: Percentage to apply for ProdOfferPriceAlteration
+        type: float
+      taxIncludedAmount:
+        $ref: '#/definitions/Money'
+        description: All taxes included amount (expressed in the given currency)
+      taxRate:
+        description: Tax rate
+        type: float
+    type: object
+  PriceAlteration:
+    description: Is an amount, usually of money, that modifies the price charged for
+      an order item.
+    properties:
+      applicationDuration:
+        description: Duration during which the alteration applies on the order item
+          price (for instance 2 months free of charge for the recurring charge)
+        type: integer
+      description:
+        description: A narrative that explains in detail the semantics of this order
+          item price alteration
+        type: string
+      name:
+        description: A short descriptive name such as "Monthly discount"
+        type: string
+      price:
+        $ref: '#/definitions/Price'
+      priceCondition:
+        description: Condition that triggers the price application
+        type: string
+      priceType:
+        description: A category that describes the price such as recurring, one time
+          and usage.
+        type: string
+      priority:
+        description: Priority level for applying this alteration among all the defined
+          alterations on the order item price
+        type: integer
+      recurringChargePeriod:
+        description: Could be month, week...
+        type: string
+      unitOfMeasure:
+        description: Could be minutes, GB...
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the price alteration is valid
+    type: object
+  ProductCharacteristic:
+    description: Characteristics of the product to instantiate or to modify
+    properties:
+      name:
+        description: Name of the characteristic
+        type: string
+      value:
+        description: Value of the characteristic
+        type: string
+    type: object
+  ProductOfferingRef:
+    description: ProductOffering reference. A product offering represents entities
+      that are orderable from the provider of the catalog, this resource includes
+      pricing information.
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/BundledProductOfferingRef'
+        type: array
+      href:
+        description: Reference of the product offering
+        type: string
+      id:
+        description: Unique identifier of the product offering
+        type: string
+      name:
+        description: Name of the product offering
+        type: string
+    type: object
+  ProductRefOrValue:
+    description: Product reference. Configure the product characteristics (only configurable
+      characteristics and necessary only if a non default value is selected) and/or
+      identify the product that needs to be modified/deleted.
+    properties:
+      characteristic:
+        items:
+          $ref: '#/definitions/ProductCharacteristic'
+        type: array
+      href:
+        description: Reference of the product
+        type: string
+      id:
+        description: Unique identifier of the product
+        type: string
+      name:
+        description: Name of the product
+        type: string
+      place:
+        items:
+          $ref: '#/definitions/PlaceRef'
+        type: array
+      productRelationship:
+        items:
+          $ref: '#/definitions/ProductRefOrValueRelationship'
+        type: array
+      productSpecification:
+        $ref: '#/definitions/ProductSpecificationRef'
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+    type: object
+  ProductRefOrValueRelationship:
+    description: Represents a relationship between products - which potentially holds
+      an entire product object or a product reference (with partial content)
+    properties:
+      product:
+        $ref: '#/definitions/ProductRefOrValue'
+      type:
+        description: |-
+          Type of the product relationship. It can be :
+          <ul>
+           <li>"bundled" if the product is a bundle and you want to describe the "bundled" products inside this bundle</li>
+           <li>"reliesOn" if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product)</li>
+          </ul>
+          "targets" or "isTargeted" (depending on the way of expressing the link) for any other kind of links that may be useful
+        type: string
+    type: object
+  ProductSpecificationRef:
+    description: 'Product specification reference: A ProductSpecification is a detailed
+      description of a tangible or intangible object made available externally in
+      the form of a ProductOffering to customers or other parties playing a party
+      role.'
+    properties:
+      href:
+        description: Reference of the product specification
+        type: string
+      id:
+        description: Unique identifier of the product specification
+        type: string
+      name:
+        description: Name of the product specification
+        type: string
+      version:
+        description: Version of the product specification
+        type: string
+    type: object
+  RelatedPartyRef:
+    description: RelatedParty reference. A related party defines party or party role
+      linked to a specific entity.
+    properties:
+      href:
+        description: Reference of the related party, could be a party reference or
+          a party role reference
+        type: string
+      id:
+        description: Unique identifier of a related party
+        type: string
+      name:
+        description: Name of the related party
+        type: string
+      role:
+        description: Role of the related party.
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: Validity period of the related party
+    type: object
+  ShoppingCart:
+    description: Shopping Cart resource is used for the temporarily selection and
+      reservation of product offerings in e-commerce, call center and retail purchase.
+      Shopping cart supports purchase of both physical and digital goods and service
+      (e.g. handset, telecom network service). Shopping Cart contain list of cart
+      items, a reference to customer (partyRole) or contact medium in case customer
+      not exist, and the total items price including promotions
+    properties:
+      cartItem:
+        items:
+          $ref: '#/definitions/CartItem'
+        type: array
+      cartTotalPrice:
+        items:
+          $ref: '#/definitions/CartPrice'
+        type: array
+      contactMedium:
+        items:
+          $ref: '#/definitions/ContactMedium'
+        type: array
+      href:
+        description: Hyperlink to access the shopping cart
+        type: string
+      id:
+        description: Unique identifier created on provider side (e.g. Order Capture
+          system)
+        type: string
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the shopping cart is valid (e.g. 90 if no
+          activity or 7 days if cart is empty)
+    type: object
+  ShoppingCart_Create:
+    description: |-
+      Shopping Cart resource is used for the temporarily selection and reservation of product offerings in e-commerce, call center and retail purchase. Shopping cart supports purchase of both physical and digital goods and service (e.g. handset, telecom network service). Shopping Cart contain list of cart items, a reference to customer (partyRole) or contact medium in case customer not exist, and the total items price including promotions
+      Skipped properties: id,href
+    properties:
+      cartItem:
+        items:
+          $ref: '#/definitions/CartItem'
+        type: array
+      cartTotalPrice:
+        items:
+          $ref: '#/definitions/CartPrice'
+        type: array
+      contactMedium:
+        items:
+          $ref: '#/definitions/ContactMedium'
+        type: array
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the shopping cart is valid (e.g. 90 if no
+          activity or 7 days if cart is empty)
+    required:
+    - cartItem
+    type: object
+  ShoppingCart_Update:
+    description: |-
+      Shopping Cart resource is used for the temporarily selection and reservation of product offerings in e-commerce, call center and retail purchase. Shopping cart supports purchase of both physical and digital goods and service (e.g. handset, telecom network service). Shopping Cart contain list of cart items, a reference to customer (partyRole) or contact medium in case customer not exist, and the total items price including promotions
+      Skipped properties: id,href,id,href,validFor,cartTotalPrice
+    properties:
+      cartItem:
+        items:
+          $ref: '#/definitions/CartItem'
+        type: array
+      contactMedium:
+        items:
+          $ref: '#/definitions/ContactMedium'
+        type: array
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+    type: object
+  TimePeriod:
+    description: A base / value business entity used to represent a period of time
+      between two timepoints.
+    properties:
+      endDateTime:
+        description: An instant of time, ending at the TimePeriod.
+        format: date-time
+        type: string
+      startDateTime:
+        description: An instant of time, starting at the TimePeriod
+        format: date-time
+        type: string
+    type: object
+host: biologeek.orange-labs.fr
+info:
+  description: Standardized mechanism for the management of shopping carts. Including
+    creation, update, retrieval, deletion and notification of event. Shopping Cart
+    entity is used for the temporarily selection and reservation of product offerings
+    in e-commerce and retail purchase. Shopping cart supports purchase of both tangible
+    and intangible goods and service (e.g. handset, telecom network service). The
+    charge includes the one-off fee such as the fee for handset and the recurring
+    fee such as the fee of a network service.  Shopping Cart contains list of cart
+    items, a reference to party or party role (e.g. customer) or contact medium in
+    case of unknown customer, In addition the calculated total items price including
+    promotions.
+  title: Shopping Cart Management
+  version: 17.0.0
+  x-lastModified: Oct 17, 2017 03:12AM PST
+paths:
+  /hub:
+    post:
+      description: Sets the communication endpoint address the service instance must
+        use to deliver information about its health state, execution state, failures
+        and metrics.
+      operationId: registerListener
+      parameters:
+      - description: Data containing the callback endpoint to deliver the information
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EventSubscriptionInput'
+      responses:
+        "201":
+          description: Subscribed
+          schema:
+            $ref: '#/definitions/EventSubscription'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Register a listener
+      tags:
+      - events subscription
+  /hub/{id}:
+    delete:
+      description: Resets the communication endpoint address the service instance
+        must use to deliver information about its health state, execution state, failures
+        and metrics.
+      operationId: unregisterListener
+      parameters:
+      - description: The id of the registered listener
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "201":
+          description: Unsubscribed
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Unregister a listener
+      tags:
+      - events subscription
+  /shoppingCart:
+    get:
+      operationId: listShoppingCart
+      parameters:
+      - description: Comma separated properties to display in response
+        format: ""
+        in: query
+        name: fields
+        required: false
+        type: string
+      - description: 'For filtering: An instant of time, ending at the TimePeriod.'
+        format: date-time
+        in: query
+        name: validFor.endDateTime
+        required: false
+        type: string
+      - description: 'For filtering: An instant of time, starting at the TimePeriod'
+        format: date-time
+        in: query
+        name: validFor.startDateTime
+        required: false
+        type: string
+      - description: 'For filtering: Author of the note'
+        format: ""
+        in: query
+        name: note.author
+        required: false
+        type: string
+      - description: 'For filtering: Date of the note'
+        format: date-time
+        in: query
+        name: note.date
+        required: false
+        type: string
+      - description: 'For filtering: Text of the note'
+        format: ""
+        in: query
+        name: note.text
+        required: false
+        type: string
+      - description: 'For filtering: If true, indicates that is the preferred contact
+          medium'
+        format: ""
+        in: query
+        name: contactMedium.preferred
+        required: false
+        type: boolean
+      - description: 'For filtering: Type of the contact medium, such as: email address,
+          telephone number, postal address'
+        format: ""
+        in: query
+        name: contactMedium.type
+        required: false
+        type: string
+      - description: 'For filtering: A short descriptive name such as "Subscription
+          price".'
+        format: ""
+        in: query
+        name: cartTotalPrice.name
+        required: false
+        type: string
+      - description: 'For filtering: A category that describes the price, such as
+          recurring, discount, allowance, penalty, and so forth'
+        format: ""
+        in: query
+        name: cartTotalPrice.priceType
+        required: false
+        type: string
+      - description: 'For filtering: Could be month, week...'
+        format: ""
+        in: query
+        name: cartTotalPrice.recurringChargePeriod
+        required: false
+        type: string
+      - description: 'For filtering: Could be minutes, GB...'
+        format: ""
+        in: query
+        name: cartTotalPrice.unitOfMeasure
+        required: false
+        type: string
+      - description: 'For filtering: Can be "add" / "modify" / "no_change"/ "delete"'
+        format: ""
+        in: query
+        name: cartItem.action
+        required: false
+        type: string
+      - description: 'For filtering: Quantity of cart items'
+        format: int32
+        in: query
+        name: cartItem.quantity
+        required: false
+        type: integer
+      - description: 'For filtering: status of cart item. e.g "Active" , "SavedForLater".'
+        format: ""
+        in: query
+        name: cartItem.status
+        required: false
+        type: string
+      - description: 'For filtering: Name of the related party'
+        format: ""
+        in: query
+        name: relatedParty.name
+        required: false
+        type: string
+      - description: 'For filtering: Role of the related party.'
+        format: ""
+        in: query
+        name: relatedParty.role
+        required: false
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/ShoppingCart'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: List or find 'ShoppingCart' objects
+      tags:
+      - shoppingCart
+    post:
+      operationId: createShoppingCart
+      parameters:
+      - description: The Shopping Cart to be created
+        in: body
+        name: shoppingCart
+        required: true
+        schema:
+          $ref: '#/definitions/ShoppingCart_Create'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/ShoppingCart'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Creates a 'ShoppingCart'
+      tags:
+      - shoppingCart
+  /shoppingCart/{id}:
+    get:
+      operationId: retrieveShoppingCart
+      parameters:
+      - description: Identifier of the Shopping Cart
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/ShoppingCart'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Retrieves a 'ShoppingCart' by Id
+      tags:
+      - shoppingCart
+    patch:
+      operationId: updateShoppingCart
+      parameters:
+      - description: Identifier of the Shopping Cart
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Shopping Cart to be updated
+        in: body
+        name: shoppingCart
+        required: true
+        schema:
+          $ref: '#/definitions/ShoppingCart_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/ShoppingCart'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates partially a 'ShoppingCart' by Id
+      tags:
+      - shoppingCart
+produces:
+- application/json
+schemes:
+- https
+swagger: "2.0"

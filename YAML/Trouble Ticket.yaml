@@ -1,0 +1,254 @@
+consumes:
+- application/json
+definitions:
+  Hub:
+    properties:
+      callback:
+        type: string
+      id:
+        type: string
+      query:
+        type: string
+    type: object
+  Note:
+    properties:
+      author:
+        type: string
+      date:
+        format: date
+        type: string
+      text:
+        type: string
+    type: object
+  RelatedObject:
+    properties:
+      involvement:
+        type: string
+      reference:
+        type: string
+    type: object
+  RelatedParty:
+    properties:
+      href:
+        type: string
+      role:
+        type: string
+    type: object
+  TroubleTicket:
+    properties:
+      correlationId:
+        type: string
+      creationDate:
+        format: date
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      relatedObject:
+        items:
+          $ref: '#/definitions/RelatedObject'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedParty'
+        type: array
+      severity:
+        type: string
+      status:
+        enum:
+        - Submitted
+        - Rejected
+        - Acknowledged
+        - InProgress
+        - InProgressHeld
+        - InProgressPending
+        - Resolved
+        - Closed
+        - Cancelled
+        type: string
+      statusChangeDate:
+        format: date
+        type: string
+      statusChangeReason:
+        type: string
+      targetResolutionDate:
+        format: date
+        type: string
+      type:
+        type: string
+    required:
+    - status
+    - statusChangeReason
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: Provides a standardized client interface to Trouble Ticket Management
+    Systems for creating, tracking and managing trouble tickets among partners as
+    a result of an issue or problem identified by a customer or another system. Examples
+    of Trouble Ticket API clients include CRM applications, network management or
+    fault management systems, or other trouble ticket management systems (e.g. B2B).
+  title: Trouble Ticket
+  version: 14.5.1
+  x-lastModified: Oct 17, 2017 03:13AM PST
+paths:
+  /hub:
+    get:
+      operationId: hubFind
+      parameters: []
+      responses:
+        "200":
+          description: List of Hub
+          schema:
+            items:
+              $ref: '#/definitions/Hub'
+            type: array
+      summary: hubFind
+      tags:
+      - hub
+    post:
+      operationId: hubCreate
+      parameters:
+      - in: body
+        name: hub
+        required: true
+        schema:
+          $ref: '#/definitions/Hub'
+      responses:
+        "201":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubCreate
+      tags:
+      - hub
+  /hub/{hubId}:
+    delete:
+      operationId: hubDelete
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Success
+      summary: hubDelete
+      tags:
+      - hub
+    get:
+      operationId: hubGet
+      parameters:
+      - in: path
+        name: hubId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Hub
+          schema:
+            $ref: '#/definitions/Hub'
+      summary: hubGet
+      tags:
+      - hub
+  /troubleTicket:
+    get:
+      operationId: troubleTicketFind
+      parameters:
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: List of TroubleTicket
+          schema:
+            items:
+              $ref: '#/definitions/TroubleTicket'
+            type: array
+      summary: troubleTicketFind
+      tags:
+      - troubleTicket
+    post:
+      operationId: troubleTicketCreate
+      parameters:
+      - in: body
+        name: troubleTicket
+        required: true
+        schema:
+          $ref: '#/definitions/TroubleTicket'
+      responses:
+        "201":
+          description: TroubleTicket
+          schema:
+            $ref: '#/definitions/TroubleTicket'
+      summary: troubleTicketCreate
+      tags:
+      - troubleTicket
+  /troubleTicket/{troubleTicketId}:
+    get:
+      operationId: troubleTicketGet
+      parameters:
+      - in: path
+        name: troubleTicketId
+        required: true
+        type: string
+      - in: query
+        name: fields
+        type: string
+      responses:
+        "200":
+          description: TroubleTicket
+          schema:
+            $ref: '#/definitions/TroubleTicket'
+      summary: troubleTicketGet
+      tags:
+      - troubleTicket
+    patch:
+      operationId: troubleTicketPatch
+      parameters:
+      - in: path
+        name: troubleTicketId
+        required: true
+        type: string
+      - in: body
+        name: troubleTicket
+        required: true
+        schema:
+          $ref: '#/definitions/TroubleTicket'
+      responses:
+        "200":
+          description: Success TroubleTicket
+          schema:
+            $ref: '#/definitions/TroubleTicket'
+      summary: troubleTicketPatch
+      tags:
+      - troubleTicket
+    put:
+      operationId: troubleTicketUpdate
+      parameters:
+      - in: path
+        name: troubleTicketId
+        required: true
+        type: string
+      - in: body
+        name: troubleTicket
+        required: true
+        schema:
+          $ref: '#/definitions/TroubleTicket'
+      responses:
+        "201":
+          description: Success TroubleTicket
+          schema:
+            $ref: '#/definitions/TroubleTicket'
+      summary: troubleTicketUpdate
+      tags:
+      - troubleTicket
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"

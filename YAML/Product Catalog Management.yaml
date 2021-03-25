@@ -1,0 +1,1747 @@
+consumes:
+- application/json
+definitions:
+  Attachment:
+    description: Describes a product through video, pictures...
+    properties:
+      href:
+        description: Reference of the attachment
+        type: string
+      id:
+        description: Unique identifier of the attachment
+        type: string
+      type:
+        description: Attachment type such as video, picture
+        type: string
+      url:
+        description: Uniform Resource Locator, is a web page address (a subset of
+          URI)
+        type: string
+    type: object
+  BundledProductOffering:
+    description: A type of ProductOffering that belongs to a grouping of ProductOfferings
+      made available to the market. It inherits of all attributes of ProductOffering.
+    properties:
+      href:
+        description: Unique reference of the BundledProductOffering
+        type: string
+      id:
+        description: Unique identifier of the BundledProductOffering
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the BundledProductOffering
+        type: string
+    type: object
+  BundledProductSpecification:
+    description: A type of ProductSpecification that belongs to a grouping of ProductSpecifications
+      made available to the market. It inherits of all attributes of ProductSpecification.
+    properties:
+      href:
+        description: Reference of the product specification
+        type: string
+      id:
+        description: Unique identifier of the product specification
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the product specification
+        type: string
+    type: object
+  Catalog:
+    description: <font color="#243f60">I</font>s a collection of Product Offerings,
+      intended for a specific DistributionChannel, enhanced with additional information
+      such as SLA parameters, invoicing and shipping details.
+    properties:
+      category:
+        items:
+          $ref: '#/definitions/CategoryRef'
+        type: array
+      href:
+        description: Unique reference of the catalog
+        type: string
+      id:
+        description: Unique identifier of the Catalog
+        type: string
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the catalog
+        type: string
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+      type:
+        description: Indicates if the catalog is a product, service or resource catalog
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the catalog is valid
+      version:
+        description: Catalog version
+        type: string
+    type: object
+  CatalogChangeBatchNotification:
+    description: TheCatalogChangeBatch notification is sent to each listener who has
+      subscribed to receive it.
+    properties:
+      event:
+        $ref: '#/definitions/CatalogEvent'
+      eventId:
+        description: Identifier of the event
+        type: string
+      eventTime:
+        description: Creation date of the event
+        format: date-time
+        type: string
+      eventType:
+        description: Type of event
+        type: string
+      fieldPath:
+        description: details which field is missing, its structure is quite similar
+          to GET filter criteria
+        type: string
+      resourcePath:
+        description: To indicate which entity is concerned
+        type: string
+    type: object
+  CatalogChangeNotification:
+    description: TheCatalogChange notification is sent to each listener who has subscribed
+      to receive it.
+    properties:
+      event:
+        $ref: '#/definitions/CatalogEvent'
+      eventId:
+        description: Identifier of the event
+        type: string
+      eventTime:
+        description: Creation date of the event
+        format: date-time
+        type: string
+      eventType:
+        description: Type of event
+        type: string
+      fieldPath:
+        description: details which field is missing, its structure is quite similar
+          to GET filter criteria
+        type: string
+      resourcePath:
+        description: To indicate which entity is concerned
+        type: string
+    type: object
+  CatalogEvent:
+    description: The Catalog event is generated each time a catalog is updated.
+    properties:
+      catalog:
+        $ref: '#/definitions/Catalog'
+    type: object
+  Category:
+    description: The category resource is used to group product offerings, service
+      and resource candidates in logical containers. Categories can contain other
+      categories and/or product offerings, resource or service candidates.
+    properties:
+      description:
+        description: Description of the category
+        type: string
+      href:
+        description: Reference of the catalog
+        type: string
+      id:
+        description: Unique identifier of the category
+        type: string
+      isRoot:
+        description: If true, this Boolean indicates that the category is a root of
+          categories
+        type: boolean
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the category
+        type: string
+      parentId:
+        description: Unique identifier of the parent category
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the category is valid
+      version:
+        description: Category version
+        type: string
+    type: object
+  Category_Create:
+    description: |-
+      The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
+      Skipped properties: id,href
+    properties:
+      description:
+        description: Description of the category
+        type: string
+      isRoot:
+        description: If true, this Boolean indicates that the category is a root of
+          categories
+        type: boolean
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the category
+        type: string
+      parentId:
+        description: Unique identifier of the parent category
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the category is valid
+      version:
+        description: Category version
+        type: string
+    required:
+    - name
+    - parentId
+    type: object
+  Category_Update:
+    description: |-
+      The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
+      Skipped properties: id,href,id,lastUpdate
+    properties:
+      description:
+        description: Description of the category
+        type: string
+      isRoot:
+        description: If true, this Boolean indicates that the category is a root of
+          categories
+        type: boolean
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the category
+        type: string
+      parentId:
+        description: Unique identifier of the parent category
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the category is valid
+      version:
+        description: Category version
+        type: string
+    type: object
+  CategoryRef:
+    description: Category reference. The category resource is used to group product
+      offerings, service and resource candidates in logical containers. Categories
+      can contain other categories and/or product offerings, resource or service candidates.
+    properties:
+      href:
+        description: Unique reference of the category
+        type: string
+      id:
+        description: Unique reference of the category
+        type: string
+      name:
+        description: Name of the category
+        type: string
+      version:
+        description: Category version
+        type: string
+    type: object
+  ChannelRef:
+    description: Channel reference. The channel defines the channel for selling product
+      offerings.
+    properties:
+      href:
+        description: Reference of the channel
+        type: string
+      id:
+        description: Unique identifier of the channel
+        type: string
+      name:
+        description: Name of the channel
+        type: string
+    type: object
+  Error:
+    properties:
+      code:
+        description: An integer coding the error type. This is given to caller so
+          he can translate them if required.
+        type: integer
+      description:
+        description: (optional) A long localized error description if needed. It can
+          contain precise information about which parameter is missing, or what are
+          the identifier acceptable values.
+        type: string
+      infoURL:
+        description: (optional) A URL to online documentation that provides more information
+          about the error.
+        type: string
+      message:
+        description: A short localized string that describes the error.
+        type: string
+    required:
+    - code
+    - message
+  EventSubscription:
+    properties:
+      callback:
+        description: The callback being registered.
+        type: string
+      id:
+        description: Id of the listener
+        type: string
+      query:
+        description: additional data to be passed
+        type: string
+    required:
+    - id
+    - callback
+  EventSubscriptionInput:
+    properties:
+      callback:
+        description: The callback being registered.
+        type: string
+      query:
+        description: additional data to be passed
+        type: string
+    required:
+    - callback
+  PlaceRef:
+    description: Place reference. Place defines the places where the product offerings
+      are sold.
+    properties:
+      href:
+        description: Unique reference of the place
+        type: string
+      id:
+        description: Unique identifier of the place
+        type: string
+      name:
+        description: Name of the place
+        type: string
+    type: object
+  Price:
+    description: Provides all amounts (tax included, duty free, tax rate), used currency
+      and percentage to apply for ProdOfferPriceAlteration.
+    properties:
+      currencyCode:
+        description: A string used as a code for specifying the currency associated
+          to the given amounts. The ISO4217 norm uses 3 letters to define the currency
+          (for example USD for US dollar or EUR for Euro)
+        type: string
+      dutyFreeAmount:
+        description: All taxes excluded amount (expressed in the given currency)
+        type: number
+      percentage:
+        description: Percentage to apply for ProdOfferPriceAlteration
+        type: number
+      priceType:
+        description: 'Indicates the price type: recurring, one time, usage'
+        type: string
+      taxIncludedAmount:
+        description: All taxes included amount (expressed in the given currency)
+        type: number
+      taxRate:
+        description: Tax rate
+        type: number
+    type: object
+  ProductOfferPriceAlteration:
+    description: An amount, usually of money, that modifies a price charged for a
+      productOffering.
+    properties:
+      applicationDuration:
+        description: Duration during which the prodOfferPriceAlteration applies on
+          the productOffering (for instance 2 months free of charge for the recurring
+          charge)
+        type: integer
+      description:
+        description: Description of the prodOfferPriceAlteration
+        type: string
+      name:
+        description: Name of the prodOfferPriceAlteration
+        type: string
+      price:
+        $ref: '#/definitions/Price'
+      priceCondition:
+        description: Condition that triggers the price application
+        type: string
+      priceType:
+        description: 'Indicates the price type: recurring, one time, usage'
+        type: string
+      recurringChargePeriod:
+        description: Could be month, week...
+        type: string
+      unitOfMeasure:
+        description: Could be minutes, GB...
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the prodOfferPriceAlteration is valid
+    type: object
+  ProductOffering:
+    description: Represents entities that are orderable from the provider of the catalog,
+      this resource includes pricing information.
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/BundledProductOffering'
+        type: array
+      category:
+        items:
+          $ref: '#/definitions/CategoryRef'
+        type: array
+      channel:
+        items:
+          $ref: '#/definitions/ChannelRef'
+        type: array
+      description:
+        description: Description of the productOffering
+        type: string
+      href:
+        description: Reference of the ProductOffering
+        type: string
+      id:
+        description: Unique identifier of the productOffering
+        type: string
+      isBundle:
+        description: isBundle determines whether a productOffering represents a single
+          productOffering (false), or a bundle of productOfferings (true).
+        type: boolean
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the productOffering
+        type: string
+      place:
+        items:
+          $ref: '#/definitions/PlaceRef'
+        type: array
+      productOfferingPrice:
+        items:
+          $ref: '#/definitions/ProductOfferingPrice'
+        type: array
+      productOfferingTerm:
+        items:
+          $ref: '#/definitions/ProductOfferingTerm'
+        type: array
+      productSpecification:
+        $ref: '#/definitions/ProductSpecificationRef'
+      resourceCandidate:
+        $ref: '#/definitions/ResourceCandidateRef'
+      serviceCandidate:
+        $ref: '#/definitions/ServiceCandidateRef'
+      serviceLevelAgreement:
+        $ref: '#/definitions/ServiceLevelAgreementRef'
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productOffering is valid
+      version:
+        description: ProductOffering version
+        type: string
+    type: object
+  ProductOffering_Create:
+    description: |-
+      Represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+      Skipped properties: id,href
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/BundledProductOffering'
+        type: array
+      category:
+        items:
+          $ref: '#/definitions/CategoryRef'
+        type: array
+      channel:
+        items:
+          $ref: '#/definitions/ChannelRef'
+        type: array
+      description:
+        description: Description of the productOffering
+        type: string
+      isBundle:
+        description: isBundle determines whether a productOffering represents a single
+          productOffering (false), or a bundle of productOfferings (true).
+        type: boolean
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the productOffering
+        type: string
+      place:
+        items:
+          $ref: '#/definitions/PlaceRef'
+        type: array
+      productOfferingPrice:
+        items:
+          $ref: '#/definitions/ProductOfferingPrice'
+        type: array
+      productOfferingTerm:
+        items:
+          $ref: '#/definitions/ProductOfferingTerm'
+        type: array
+      productSpecification:
+        $ref: '#/definitions/ProductSpecificationRef'
+      resourceCandidate:
+        $ref: '#/definitions/ResourceCandidateRef'
+      serviceCandidate:
+        $ref: '#/definitions/ServiceCandidateRef'
+      serviceLevelAgreement:
+        $ref: '#/definitions/ServiceLevelAgreementRef'
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productOffering is valid
+      version:
+        description: ProductOffering version
+        type: string
+    required:
+    - name
+    - bundledProductOffering
+    - productSpecification
+    - productOfferingPrice
+    type: object
+  ProductOffering_Update:
+    description: |-
+      Represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
+      Skipped properties: id,href,id,lastUpdate
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/BundledProductOffering'
+        type: array
+      category:
+        items:
+          $ref: '#/definitions/CategoryRef'
+        type: array
+      channel:
+        items:
+          $ref: '#/definitions/ChannelRef'
+        type: array
+      description:
+        description: Description of the productOffering
+        type: string
+      isBundle:
+        description: isBundle determines whether a productOffering represents a single
+          productOffering (false), or a bundle of productOfferings (true).
+        type: boolean
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the productOffering
+        type: string
+      place:
+        items:
+          $ref: '#/definitions/PlaceRef'
+        type: array
+      productOfferingPrice:
+        items:
+          $ref: '#/definitions/ProductOfferingPrice'
+        type: array
+      productOfferingTerm:
+        items:
+          $ref: '#/definitions/ProductOfferingTerm'
+        type: array
+      productSpecification:
+        $ref: '#/definitions/ProductSpecificationRef'
+      resourceCandidate:
+        $ref: '#/definitions/ResourceCandidateRef'
+      serviceCandidate:
+        $ref: '#/definitions/ServiceCandidateRef'
+      serviceLevelAgreement:
+        $ref: '#/definitions/ServiceLevelAgreementRef'
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productOffering is valid
+      version:
+        description: ProductOffering version
+        type: string
+    type: object
+  ProductOfferingPrice:
+    description: Is based on both the basic cost to develop and produce products and
+      the enterprise's policy on revenue targets. This price may be further revised
+      through discounting (prodOfferPriceAlteration). The price, applied for a productOffering
+      may also be influenced by the productOfferingTerm, the customer selected - e.g.
+      a productOffering can be offered with multiple terms, like commitment periods
+      for the contract. The price may be influenced by this productOfferingTerm. A
+      productOffering may be cheaper with a 24 month commitment than with a 12 month
+      commitment.
+    properties:
+      description:
+        description: Description of the productOfferingPrice
+        type: string
+      name:
+        description: Name of the productOfferingPrice
+        type: string
+      price:
+        $ref: '#/definitions/Price'
+      priceType:
+        description: 'Indicates the price type: recurring, one time, usage'
+        type: string
+      productOfferPriceAlteration:
+        $ref: '#/definitions/ProductOfferPriceAlteration'
+      recurringChargePeriod:
+        description: Could be month, week...
+        type: string
+      unitOfMeasure:
+        description: Could be minutes, GB...
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productOfferingPrice is valid
+      version:
+        description: ProductOffering version
+        type: string
+    type: object
+  ProductOfferingTerm:
+    description: A condition under which a ProductOffering is made available to Customers.
+      For instance, a productOffering can be offered with multiple commitment periods.
+    properties:
+      description:
+        description: Description of the productOfferingTerm
+        type: string
+      duration:
+        description: Duration of the productOfferingTerm
+        type: string
+      name:
+        description: Name of the productOfferingTerm
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productOfferingterm is valid
+    type: object
+  ProductSpecCharRelationship:
+    description: An aggregation, migration, substitution, dependency or exclusivity
+      relationship between/among productSpecCharacteristics.
+    properties:
+      type:
+        description: Type of relationship such as aggregation, migration, substitution,
+          dependency, exclusivity
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productSpecCharRelationship is valid
+    type: object
+  ProductSpecCharacteristic:
+    description: A characteristic quality or distinctive feature of a ProductSpecification.  The
+      characteristic can be take on a discrete value, such as color, can take on a
+      range of values, (for example, sensitivity of 100-240 mV), or can be derived
+      from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain
+      characteristics, such as color, may be configured during the ordering or some
+      other process.
+    properties:
+      configurable:
+        description: If true, the Boolean indicates that the productSpecCharacteristic
+          is configurable
+        type: boolean
+      description:
+        description: A narrative that explains in detail what the productSpecCharacteristic
+          is
+        type: string
+      name:
+        description: Name of the productSpecCharacteristic
+        type: string
+      productSpecCharRelationship:
+        items:
+          $ref: '#/definitions/ProductSpecCharRelationship'
+        type: array
+      productSpecCharacteristicValue:
+        items:
+          $ref: '#/definitions/ProductSpecCharacteristicValue'
+        type: array
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productSpecCharacteristic is valid
+      valueType:
+        description: A kind of value that the characteristic can take on, such as
+          numeric, text and so forth
+        type: string
+    type: object
+  ProductSpecCharacteristicValue:
+    description: A number or text that can be assigned to a ProductSpecCharacteristic.
+    properties:
+      default:
+        description: Indicates if the value is the default value for a characteristic
+        type: boolean
+      unitOfMeasure:
+        description: Could be minutes, GB...
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period of time for which a value is applicable
+      value:
+        description: A discrete value that the characteristic can take on
+        type: string
+      valueFrom:
+        description: The low range value that a characteristic can take on
+        type: string
+      valueTo:
+        description: The upper range value that a characteristic can take on
+        type: string
+      valueType:
+        description: A kind of value that the characteristic can take on, such as
+          numeric, text, and so forth
+        type: string
+    type: object
+  ProductSpecification:
+    description: Is a detailed description of a tangible or intangible object made
+      available externally in the form of a ProductOffering to customers or other
+      parties playing a party role.
+    properties:
+      attachment:
+        items:
+          $ref: '#/definitions/Attachment'
+        type: array
+      brand:
+        description: The manufacturer or trademark of the specification
+        type: string
+      bundledProductSpecification:
+        items:
+          $ref: '#/definitions/BundledProductSpecification'
+        type: array
+      description:
+        description: A narrative that explains in detail what the product specification
+          is
+        type: string
+      href:
+        description: Reference of the product specification
+        type: string
+      id:
+        description: Unique identifier of the product specification
+        type: string
+      isBundle:
+        description: isBundle determines whether a productSpecification represents
+          a single productSpecification (false), or a bundle of productSpecification
+          (true).
+        type: boolean
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the product specification
+        type: string
+      productNumber:
+        description: An identification number assigned to uniquely identity the specification
+        type: string
+      productSpecCharacteristic:
+        items:
+          $ref: '#/definitions/ProductSpecCharacteristic'
+        type: array
+      productSpecificationRelationship:
+        items:
+          $ref: '#/definitions/ProductSpecificationRelationship'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+      resourceSpecification:
+        items:
+          $ref: '#/definitions/ResourceSpecificationRef'
+        type: array
+      serviceSpecification:
+        items:
+          $ref: '#/definitions/ServiceSpecificationRef'
+        type: array
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the product specification is valid
+      version:
+        description: Product specification version
+        type: string
+    type: object
+  ProductSpecification_Create:
+    description: |-
+      Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+      Skipped properties: id,href
+    properties:
+      attachment:
+        items:
+          $ref: '#/definitions/Attachment'
+        type: array
+      brand:
+        description: The manufacturer or trademark of the specification
+        type: string
+      bundledProductSpecification:
+        items:
+          $ref: '#/definitions/BundledProductSpecification'
+        type: array
+      description:
+        description: A narrative that explains in detail what the product specification
+          is
+        type: string
+      isBundle:
+        description: isBundle determines whether a productSpecification represents
+          a single productSpecification (false), or a bundle of productSpecification
+          (true).
+        type: boolean
+      lastUpdate:
+        description: Date and time of the last update
+        format: date-time
+        type: string
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the product specification
+        type: string
+      productNumber:
+        description: An identification number assigned to uniquely identity the specification
+        type: string
+      productSpecCharacteristic:
+        items:
+          $ref: '#/definitions/ProductSpecCharacteristic'
+        type: array
+      productSpecificationRelationship:
+        items:
+          $ref: '#/definitions/ProductSpecificationRelationship'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+      resourceSpecification:
+        items:
+          $ref: '#/definitions/ResourceSpecificationRef'
+        type: array
+      serviceSpecification:
+        items:
+          $ref: '#/definitions/ServiceSpecificationRef'
+        type: array
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the product specification is valid
+      version:
+        description: Product specification version
+        type: string
+    required:
+    - name
+    - bundledProductSpecification
+    - productSpecCharacteristic
+    type: object
+  ProductSpecification_Update:
+    description: |-
+      Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+      Skipped properties: id,href,id,lastUpdate
+    properties:
+      attachment:
+        items:
+          $ref: '#/definitions/Attachment'
+        type: array
+      brand:
+        description: The manufacturer or trademark of the specification
+        type: string
+      bundledProductSpecification:
+        items:
+          $ref: '#/definitions/BundledProductSpecification'
+        type: array
+      description:
+        description: A narrative that explains in detail what the product specification
+          is
+        type: string
+      isBundle:
+        description: isBundle determines whether a productSpecification represents
+          a single productSpecification (false), or a bundle of productSpecification
+          (true).
+        type: boolean
+      lifecycleStatus:
+        description: Used to indicate the current lifecycle status
+        type: string
+      name:
+        description: Name of the product specification
+        type: string
+      productNumber:
+        description: An identification number assigned to uniquely identity the specification
+        type: string
+      productSpecCharacteristic:
+        items:
+          $ref: '#/definitions/ProductSpecCharacteristic'
+        type: array
+      productSpecificationRelationship:
+        items:
+          $ref: '#/definitions/ProductSpecificationRelationship'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedPartyRef'
+        type: array
+      resourceSpecification:
+        items:
+          $ref: '#/definitions/ResourceSpecificationRef'
+        type: array
+      serviceSpecification:
+        items:
+          $ref: '#/definitions/ServiceSpecificationRef'
+        type: array
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the product specification is valid
+      version:
+        description: Product specification version
+        type: string
+    type: object
+  ProductSpecificationRef:
+    description: 'Product specification reference: A ProductSpecification is a detailed
+      description of a tangible or intangible object made available externally in
+      the form of a ProductOffering to customers or other parties playing a party
+      role.'
+    properties:
+      href:
+        description: Reference of the product specification
+        type: string
+      id:
+        description: Unique identifier of the product specification
+        type: string
+      name:
+        description: Name of the product specification
+        type: string
+      version:
+        description: Version of the product specification
+        type: string
+    type: object
+  ProductSpecificationRelationship:
+    description: A migration, substitution, dependency or exclusivity relationship
+      between/among product specifications.
+    properties:
+      href:
+        description: Reference of the productSpecification
+        type: string
+      id:
+        description: Unique identifier of the productSpecification
+        type: string
+      type:
+        description: Type of relationship such as migration, substitution, dependency,
+          exclusivity
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: The period for which the productSpecificationRelationship is
+          valid
+    type: object
+  RelatedPartyRef:
+    description: RelatedParty reference. RelatedParty defines party or party role
+      linked to a specific entity.
+    properties:
+      href:
+        description: Reference of the related party, could be a party reference or
+          a partyRole reference
+        type: string
+      id:
+        description: Unique identifier of a related party
+        type: string
+      name:
+        description: Name of the related party
+        type: string
+      role:
+        description: Role of the related party.
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+        description: Validity period of the related party
+    type: object
+  ResourceCandidateRef:
+    description: 'ResourceCandidate reference: A resource candidate is an entity that
+      makes a ResourceSpecification available to a catalog.'
+    properties:
+      href:
+        description: Reference of the resource candidate
+        type: string
+      id:
+        description: Unique identifier of the resource candidate
+        type: string
+      name:
+        description: Name of the resource candidate
+        type: string
+      version:
+        description: Version of the resource candidate
+        type: string
+    type: object
+  ResourceSpecificationRef:
+    description: 'Resource Specification reference: The ResourceSpecification is required
+      to realize a ProductSpecification.'
+    properties:
+      href:
+        description: Reference of the resource specification
+        type: string
+      id:
+        description: Unique identifier of the resource specification
+        type: string
+      name:
+        description: Name of the requiredResourceSpecification
+        type: string
+      version:
+        description: Resource specification version
+        type: string
+    type: object
+  ServiceCandidateRef:
+    description: ServiceCandidate reference. ServiceCandidate is an entity that makes
+      a ServiceSpecification available to a catalog.
+    properties:
+      href:
+        description: Unique reference of the service candidate
+        type: string
+      id:
+        description: Unique identifier of the service candidate
+        type: string
+      name:
+        description: Name of the service candidate
+        type: string
+      version:
+        description: Version of the service candidate
+        type: string
+    type: object
+  ServiceLevelAgreementRef:
+    description: 'ServiceLevelAgreement reference: A service level agreement (SLA)
+      is a type of agreement that represents a formal negotiated agreement between
+      two parties designed to create a common understanding about products, services,
+      priorities, responsibilities, and so forth. The SLA is a set of appropriate
+      procedures and targets formally or informally agreed between parties in order
+      to achieve and maintain specified Quality of Service.'
+    properties:
+      href:
+        description: Reference of the service level agreement
+        type: string
+      id:
+        description: Unique identifier of service level agreement
+        type: string
+      name:
+        description: Name of the service level agreement
+        type: string
+    type: object
+  ServiceSpecificationRef:
+    description: 'Service specification reference: ServiceSpecification(s) required
+      to realize a ProductSpecification.'
+    properties:
+      href:
+        description: Reference of the serviceSpecification
+        type: string
+      id:
+        description: Unique identifier of the service specification
+        type: string
+      name:
+        description: Name of the requiredServiceSpecification
+        type: string
+      version:
+        description: Service specification version
+        type: string
+    type: object
+  TimePeriod:
+    description: A base / value business entity used to represent a period of time
+      between two timepoints.
+    properties:
+      endDateTime:
+        description: An instant of time, ending at the TimePeriod.
+        format: date-time
+        type: string
+      startDateTime:
+        description: An instant of time, starting at the TimePeriod
+        format: date-time
+        type: string
+    type: object
+host: env-0693795.jelastic.servint.net
+info:
+  description: Provides a standardized solution for rapidly adding partners’ products
+    to an existing Catalog. It brings the capability for Service Providers to directly
+    feed partners systems with the technical description of the products they propose
+    to them.
+  title: Product Catalog Management
+  version: 14.5.1
+  x-lastModified: Oct 17, 2017 03:08AM PST
+paths:
+  /category:
+    get:
+      operationId: listCategory
+      parameters:
+      - description: Comma separated properties to display in response
+        format: ""
+        in: query
+        name: fields
+        required: false
+        type: string
+      - description: 'For filtering: Date and time of the last update'
+        format: date-time
+        in: query
+        name: lastUpdate
+        required: false
+        type: string
+      - description: 'For filtering: Category version'
+        format: ""
+        in: query
+        name: version
+        required: false
+        type: string
+      - description: 'For filtering: Used to indicate the current lifecycle status'
+        format: ""
+        in: query
+        name: lifecycleStatus
+        required: false
+        type: string
+      - description: 'For filtering: Unique identifier of the parent category'
+        format: ""
+        in: query
+        name: parentId
+        required: false
+        type: string
+      - description: 'For filtering: If true, this Boolean indicates that the category
+          is a root of categories'
+        format: ""
+        in: query
+        name: isRoot
+        required: false
+        type: boolean
+      - description: 'For filtering: Name of the category'
+        format: ""
+        in: query
+        name: name
+        required: false
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/Category'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: List or find 'Category' objects
+      tags:
+      - category
+    post:
+      operationId: createCategory
+      parameters:
+      - description: The Category to be created
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/Category_Create'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Creates a 'Category'
+      tags:
+      - category
+  /category/{id}:
+    get:
+      operationId: retrieveCategory
+      parameters:
+      - description: Identifier of the Category
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/Category'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Retrieves a 'Category' by Id
+      tags:
+      - category
+    patch:
+      operationId: updateCategoryPartially
+      parameters:
+      - description: Identifier of the Category
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Category to be updated
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/Category_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates partially a 'Category' by Id
+      tags:
+      - category
+    put:
+      operationId: updateCategory
+      parameters:
+      - description: Identifier of the Category
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Category to be updated
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/Category_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates a 'Category' by Id
+      tags:
+      - category
+  /hub:
+    post:
+      description: Sets the communication endpoint address the service instance must
+        use to deliver information about its health state, execution state, failures
+        and metrics.
+      operationId: registerListener
+      parameters:
+      - description: Data containing the callback endpoint to deliver the information
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EventSubscriptionInput'
+      responses:
+        "201":
+          description: Subscribed
+          schema:
+            $ref: '#/definitions/EventSubscription'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Register a listener
+      tags:
+      - events subscription
+  /hub/{id}:
+    delete:
+      description: Resets the communication endpoint address the service instance
+        must use to deliver information about its health state, execution state, failures
+        and metrics.
+      operationId: unregisterListener
+      parameters:
+      - description: The id of the registered listener
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "201":
+          description: Unsubscribed
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Unregister a listener
+      tags:
+      - events subscription
+  /listener/catalogChangeBatchNotification:
+    post:
+      operationId: publishCatalogChangeBatchNotification
+      parameters:
+      - description: The Catalog Change Batch Notification to be published
+        in: body
+        name: catalogChangeBatchNotification
+        required: true
+        schema:
+          $ref: '#/definitions/CatalogChangeBatchNotification'
+      responses:
+        "201":
+          description: Published
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Publishes a 'CatalogChangeBatchNotification'
+      tags:
+      - events publication
+  /listener/catalogChangeNotification:
+    post:
+      operationId: publishCatalogChangeNotification
+      parameters:
+      - description: The Catalog Change Notification to be published
+        in: body
+        name: catalogChangeNotification
+        required: true
+        schema:
+          $ref: '#/definitions/CatalogChangeNotification'
+      responses:
+        "201":
+          description: Published
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Publishes a 'CatalogChangeNotification'
+      tags:
+      - events publication
+  /productOffering:
+    get:
+      operationId: listProductOffering
+      parameters:
+      - description: Comma separated properties to display in response
+        in: query
+        name: fields
+        required: false
+        type: string
+      - description: 'For filtering: ProductOffering version'
+        in: query
+        name: version
+        required: false
+        type: string
+      - description: 'For filtering: Date and time of the last update'
+        format: date-time
+        in: query
+        name: lastUpdate
+        required: false
+        type: string
+      - description: 'For filtering: Name of the productOffering'
+        in: query
+        name: name
+        required: false
+        type: string
+      - description: 'For filtering: isBundle determines whether a productOffering
+          represents a single productOffering (false), or a bundle of productOfferings
+          (true).'
+        in: query
+        name: isBundle
+        required: false
+        type: boolean
+      - description: 'For filtering: Used to indicate the current lifecycle status'
+        in: query
+        name: lifecycleStatus
+        required: false
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/ProductOffering'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: List or find 'ProductOffering' objects
+      tags:
+      - productOffering
+    post:
+      operationId: createProductOffering
+      parameters:
+      - description: The Product Offering to be created
+        in: body
+        name: productOffering
+        required: true
+        schema:
+          $ref: '#/definitions/ProductOffering_Create'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/ProductOffering'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Creates a 'ProductOffering'
+      tags:
+      - productOffering
+  /productOffering/{id}:
+    get:
+      operationId: retrieveProductOffering
+      parameters:
+      - description: Identifier of the Product Offering
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/ProductOffering'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Retrieves a 'ProductOffering' by Id
+      tags:
+      - productOffering
+    patch:
+      operationId: updateProductOfferingPartially
+      parameters:
+      - description: Identifier of the Product Offering
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Product Offering to be updated
+        in: body
+        name: productOffering
+        required: true
+        schema:
+          $ref: '#/definitions/ProductOffering_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/ProductOffering'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates partially a 'ProductOffering' by Id
+      tags:
+      - productOffering
+    put:
+      operationId: updateProductOffering
+      parameters:
+      - description: Identifier of the Product Offering
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Product Offering to be updated
+        in: body
+        name: productOffering
+        required: true
+        schema:
+          $ref: '#/definitions/ProductOffering_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/ProductOffering'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates a 'ProductOffering' by Id
+      tags:
+      - productOffering
+  /productSpecification:
+    get:
+      operationId: listProductSpecification
+      parameters:
+      - description: Comma separated properties to display in response
+        in: query
+        name: fields
+        required: false
+        type: string
+      - description: 'For filtering: Product specification version'
+        in: query
+        name: version
+        required: false
+        type: string
+      - description: 'For filtering: Date and time of the last update'
+        format: date-time
+        in: query
+        name: lastUpdate
+        required: false
+        type: string
+      - description: 'For filtering: Name of the product specification'
+        in: query
+        name: name
+        required: false
+        type: string
+      - description: 'For filtering: isBundle determines whether a productSpecification
+          represents a single productSpecification (false), or a bundle of productSpecification
+          (true).'
+        in: query
+        name: isBundle
+        required: false
+        type: boolean
+      - description: 'For filtering: The manufacturer or trademark of the specification'
+        in: query
+        name: brand
+        required: false
+        type: string
+      - description: 'For filtering: Used to indicate the current lifecycle status'
+        in: query
+        name: lifecycleStatus
+        required: false
+        type: string
+      - description: 'For filtering: An identification number assigned to uniquely
+          identity the specification'
+        in: query
+        name: productNumber
+        required: false
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/ProductSpecification'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: List or find 'ProductSpecification' objects
+      tags:
+      - productSpecification
+    post:
+      operationId: createProductSpecification
+      parameters:
+      - description: The Product Specification to be created
+        in: body
+        name: productSpecification
+        required: true
+        schema:
+          $ref: '#/definitions/ProductSpecification_Create'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/ProductSpecification'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Creates a 'ProductSpecification'
+      tags:
+      - productSpecification
+  /productSpecification/{id}:
+    get:
+      operationId: retrieveProductSpecification
+      parameters:
+      - description: Identifier of the Product Specification
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            items:
+              $ref: '#/definitions/ProductSpecification'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Retrieves a 'ProductSpecification' by Id
+      tags:
+      - productSpecification
+    patch:
+      operationId: updateProductSpecificationPartially
+      parameters:
+      - description: Identifier of the Product Specification
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Product Specification to be updated
+        in: body
+        name: productSpecification
+        required: true
+        schema:
+          $ref: '#/definitions/ProductSpecification_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/ProductSpecification'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates partially a 'ProductSpecification' by Id
+      tags:
+      - productSpecification
+    put:
+      operationId: updateProductSpecification
+      parameters:
+      - description: Identifier of the Product Specification
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The Product Specification to be updated
+        in: body
+        name: productSpecification
+        required: true
+        schema:
+          $ref: '#/definitions/ProductSpecification_Update'
+      responses:
+        "201":
+          description: Updated
+          schema:
+            $ref: '#/definitions/ProductSpecification'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      summary: Updates a 'ProductSpecification' by Id
+      tags:
+      - productSpecification
+produces:
+- application/json
+schemes:
+- https
+swagger: "2.0"

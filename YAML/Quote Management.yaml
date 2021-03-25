@@ -1,0 +1,357 @@
+consumes:
+- application/json
+definitions:
+  Agreement:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  Attachment:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      type:
+        type: string
+    type: object
+  BillingAccount:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  Characteristic:
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+    type: object
+  Customer:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  Note:
+    properties:
+      author:
+        type: string
+      date:
+        format: date-time
+        type: string
+      text:
+        type: string
+    type: object
+  Price:
+    properties:
+      percentage:
+        format: int32
+        type: integer
+    type: object
+  Product:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      productCharacteristic:
+        items:
+          $ref: '#/definitions/Characteristic'
+        type: array
+      productRelationship:
+        items:
+          $ref: '#/definitions/ProductRelationship'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedParty'
+        type: array
+    type: object
+  ProductOffering:
+    properties:
+      bundledProductOffering:
+        items:
+          $ref: '#/definitions/ProductOffering'
+        type: array
+      href:
+        type: string
+      id:
+        type: string
+    type: object
+  ProductRelationship:
+    properties:
+      product:
+        $ref: '#/definitions/Product'
+      type:
+        type: string
+    type: object
+  Quote:
+    properties:
+      agreement:
+        items:
+          $ref: '#/definitions/Agreement'
+        type: array
+      billingAccount:
+        items:
+          $ref: '#/definitions/BillingAccount'
+        type: array
+      category:
+        type: string
+      characteristic:
+        items:
+          $ref: '#/definitions/Characteristic'
+        type: array
+      customer:
+        $ref: '#/definitions/Customer'
+      description:
+        type: string
+      effectiveQuoteCompletionDate:
+        format: date-time
+        type: string
+      externalId:
+        type: string
+      href:
+        type: string
+      id:
+        type: string
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      notificationContact:
+        type: string
+      quoteCompletionDate:
+        format: date-time
+        type: string
+      quoteDate:
+        format: date-time
+        type: string
+      quoteItem:
+        items:
+          $ref: '#/definitions/QuoteItem'
+        type: array
+      quoteProductOfferingPrice:
+        items:
+          $ref: '#/definitions/QuoteProductOfferingPrice'
+        type: array
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedParty'
+        type: array
+      state:
+        enum:
+        - InProgress
+        - Pending
+        - Cancelled
+        - Approved
+        - Accepted
+        - Rejected
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+      version:
+        type: string
+    type: object
+  QuoteAuthorization:
+    properties:
+      attachment:
+        items:
+          $ref: '#/definitions/Attachment'
+        type: array
+      authorizationDate:
+        format: date-time
+        type: string
+      authorizationSignatureRepresentation:
+        type: string
+      authorizationState:
+        type: string
+    type: object
+  QuoteItem:
+    properties:
+      attachment:
+        items:
+          $ref: '#/definitions/Attachment'
+        type: array
+      id:
+        type: string
+      itemQuoteProductOfferingPrice:
+        items:
+          $ref: '#/definitions/QuoteProductOfferingPrice'
+        type: array
+      note:
+        items:
+          $ref: '#/definitions/Note'
+        type: array
+      product:
+        $ref: '#/definitions/Product'
+      productOffering:
+        $ref: '#/definitions/ProductOffering'
+      relatedParty:
+        items:
+          $ref: '#/definitions/RelatedParty'
+        type: array
+      state:
+        type: string
+    type: object
+  QuotePriceAlteration:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      validFor:
+        $ref: '#/definitions/ValidFor'
+    type: object
+  QuoteProductOfferingPrice:
+    properties:
+      price:
+        $ref: '#/definitions/Price'
+      priceCondition:
+        type: string
+      priceType:
+        type: string
+      quotePriceAlteration:
+        $ref: '#/definitions/QuotePriceAlteration'
+      recurringChargePeriod:
+        type: string
+    type: object
+  RelatedParty:
+    properties:
+      href:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+  ValidFor:
+    properties:
+      endDateTime:
+        format: date-time
+        type: string
+      startDateTime:
+        format: date-time
+        type: string
+    type: object
+host: api.orange.com
+info:
+  description: The Quote API is one of the Pre-Ordering Management APIs. The customer
+    Quote API provides a standardized mechanism for placing a customer quote with
+    all of the necessary quote parameters.
+  title: Quote Management
+  version: 16.0.1
+  x-lastModified: Oct 17, 2017 03:10AM PST
+paths:
+  /quote:
+    get:
+      description: "This operation is used to retrieve quote information using filter
+        criteria.  \nIf the version is not filled, by default only the most current
+        version is returned."
+      operationId: quoteList
+      parameters:
+      - description: For attribute selection
+        format: ""
+        in: query
+        name: fields
+        type: string
+      - description: quote state
+        format: ""
+        in: query
+        name: state
+        type: string
+      - description: quote category
+        format: ""
+        in: query
+        name: category
+        type: string
+      - description: cf specification
+        format: ""
+        in: query
+        name: andSoOn...
+        type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            items:
+              $ref: '#/definitions/Quote'
+            type: array
+      summary: find
+      tags:
+      - quote
+    post:
+      description: This operation is used to create a new quote (V1.0) or a new version
+        of an existing quote (Vn.n n=> 1)
+      operationId: quoteCreate
+      parameters:
+      - in: body
+        name: quote
+        required: true
+        schema:
+          $ref: '#/definitions/Quote'
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: '#/definitions/Quote'
+      summary: create
+      tags:
+      - quote
+  /quote/{quoteId}:
+    get:
+      description: This operation is used to retrieve quote information using the
+        ID. If the version is not filled, by default only the most current version
+        is returned.
+      operationId: quotefindById
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/Quote'
+      summary: findById
+      tags:
+      - quote
+    patch:
+      description: "This operation is used to modify quote and/or their items.  \nBy
+        default PATCH will be acting only on the latest version of the Resource."
+      operationId: quotePatch
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        type: string
+      - in: body
+        name: quote
+        required: true
+        schema:
+          $ref: '#/definitions/Quote'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/Quote'
+      summary: patch
+      tags:
+      - quote
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
