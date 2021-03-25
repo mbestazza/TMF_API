@@ -1,0 +1,380 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Trouble Ticket",
+    "version": "14.5.1",
+    "x-lastModified": "Oct 17, 2017 03:13AM PST",
+    "description": "Provides a standardized client interface to Trouble Ticket Management Systems for creating, tracking and managing trouble tickets among partners as a result of an issue or problem identified by a customer or another system. Examples of Trouble Ticket API clients include CRM applications, network management or fault management systems, or other trouble ticket management systems (e.g. B2B)."
+  },
+  "host": "env-0693795.jelastic.servint.net",
+  "paths": {
+    "/hub": {
+      "get": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubFind",
+        "operationId": "hubFind",
+        "responses": {
+          "200": {
+            "description": "List of Hub",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hub"
+              }
+            }
+          }
+        },
+        "parameters": []
+      },
+      "post": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubCreate",
+        "operationId": "hubCreate",
+        "parameters": [
+          {
+            "name": "hub",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Hub",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        }
+      }
+    },
+    "/hub/{hubId}": {
+      "get": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubGet",
+        "operationId": "hubGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "hubId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hub",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubDelete",
+        "operationId": "hubDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "hubId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/troubleTicket": {
+      "get": {
+        "tags": [
+          "troubleTicket"
+        ],
+        "summary": "troubleTicketFind",
+        "operationId": "troubleTicketFind",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of TroubleTicket",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TroubleTicket"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "troubleTicket"
+        ],
+        "summary": "troubleTicketCreate",
+        "operationId": "troubleTicketCreate",
+        "parameters": [
+          {
+            "name": "troubleTicket",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "TroubleTicket",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        }
+      }
+    },
+    "/troubleTicket/{troubleTicketId}": {
+      "get": {
+        "tags": [
+          "troubleTicket"
+        ],
+        "summary": "troubleTicketGet",
+        "operationId": "troubleTicketGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "troubleTicketId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TroubleTicket",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "troubleTicket"
+        ],
+        "summary": "troubleTicketUpdate",
+        "operationId": "troubleTicketUpdate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "troubleTicketId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "troubleTicket",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success TroubleTicket",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "troubleTicket"
+        ],
+        "summary": "troubleTicketPatch",
+        "operationId": "troubleTicketPatch",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "troubleTicketId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "troubleTicket",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success TroubleTicket",
+            "schema": {
+              "$ref": "#/definitions/TroubleTicket"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Hub": {
+      "type": "object",
+      "properties": {
+        "callback": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "RelatedObject": {
+      "type": "object",
+      "properties": {
+        "involvement": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        }
+      }
+    },
+    "RelatedParty": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "TroubleTicket": {
+      "type": "object",
+      "required": [
+        "status",
+        "statusChangeReason"
+      ],
+      "properties": {
+        "correlationId": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "note": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        },
+        "relatedObject": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedObject"
+          }
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedParty"
+          }
+        },
+        "severity": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Submitted",
+            "Rejected",
+            "Acknowledged",
+            "InProgress",
+            "InProgressHeld",
+            "InProgressPending",
+            "Resolved",
+            "Closed",
+            "Cancelled"
+          ]
+        },
+        "statusChangeDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "statusChangeReason": {
+          "type": "string"
+        },
+        "targetResolutionDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

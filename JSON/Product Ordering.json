@@ -1,0 +1,532 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Product Ordering",
+    "version": "16.5.1",
+    "x-lastModified": "Oct 17, 2017 03:10AM PST",
+    "description": "Provides a standardized mechanism for placing a product order with all of the necessary order parameters. The API consists of a simple set of operations that interact with CRM/Order negotiation systems in a consistent manner. A product order is created based on a product offering that is defined in a catalog. The product offering identifies the product or set of products that are available to a customer, and includes characteristics such as pricing, product options and market."
+  },
+  "host": "env-0693795.jelastic.servint.net",
+  "paths": {
+    "/hub": {
+      "get": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubFind",
+        "operationId": "hubFind",
+        "responses": {
+          "200": {
+            "description": "List of Hub",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hub"
+              }
+            }
+          }
+        },
+        "parameters": []
+      },
+      "post": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubCreate",
+        "operationId": "hubCreate",
+        "parameters": [
+          {
+            "name": "hub",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Hub",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        }
+      }
+    },
+    "/hub/{hubId}": {
+      "get": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubGet",
+        "operationId": "hubGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "hubId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hub",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubDelete",
+        "operationId": "hubDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "hubId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/productOrder": {
+      "get": {
+        "tags": [
+          "productOrder"
+        ],
+        "summary": "productOrderFind",
+        "operationId": "productOrderFind",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of ProductOrder",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductOrder"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "productOrder"
+        ],
+        "summary": "productOrderInCreate",
+        "operationId": "productOrderInCreate",
+        "parameters": [
+          {
+            "name": "productOrder",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductOrderIn"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "ProductOrderIn",
+            "schema": {
+              "$ref": "#/definitions/ProductOrderIn"
+            }
+          }
+        }
+      }
+    },
+    "/productOrder/{productOrderId}": {
+      "get": {
+        "tags": [
+          "productOrder"
+        ],
+        "summary": "productOrderGet",
+        "operationId": "productOrderGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "productOrderId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ProductOrder",
+            "schema": {
+              "$ref": "#/definitions/ProductOrder"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "productOrder"
+        ],
+        "summary": "productOrderPatch",
+        "operationId": "productOrderPatch",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "productOrderId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "productOrder",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success ProductOrder",
+            "schema": {
+              "$ref": "#/definitions/ProductOrder"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Hub": {
+      "type": "object",
+      "properties": {
+        "callback": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "OrderItem": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "appointment": {
+          "type": "string"
+        },
+        "billingAccount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reference"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        },
+        "productOffering": {
+          "$ref": "#/definitions/ProductOffering"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Acknowledged",
+            "InProgress",
+            "Cancelled",
+            "Completed",
+            "Rejected",
+            "Pending",
+            "Held",
+            "Failed",
+            "Partial"
+          ]
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "place": {
+          "$ref": "#/definitions/Reference"
+        },
+        "productCharacteristic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductCharacteristic"
+          }
+        },
+        "productRelationship": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductRelationship"
+          }
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reference"
+          }
+        }
+      }
+    },
+    "ProductCharacteristic": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductOffering": {
+      "type": "object",
+      "properties": {
+        "bundledProductOffering": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reference"
+          }
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductOrder": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "completionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "expectedCompletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "externalId": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "note": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        },
+        "notificationContact": {
+          "type": "string"
+        },
+        "orderDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "orderItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderItem"
+          }
+        },
+        "priority": {
+          "type": "string"
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reference"
+          }
+        },
+        "requestedCompletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requestedStartDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Acknowledged",
+            "InProgress",
+            "Cancelled",
+            "Completed",
+            "Rejected",
+            "Pending",
+            "Held",
+            "Failed",
+            "Partial"
+          ]
+        }
+      }
+    },
+    "ProductOrderIn": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "completionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "expectedCompletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "externalId": {
+          "type": "string"
+        },
+        "note": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        },
+        "notificationContact": {
+          "type": "string"
+        },
+        "orderDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reference"
+          }
+        },
+        "requestedCompletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requestedStartDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Acknowledged",
+            "InProgress",
+            "Cancelled",
+            "Completed",
+            "Rejected",
+            "Pending",
+            "Held",
+            "Failed",
+            "Partial"
+          ]
+        }
+      }
+    },
+    "ProductRelationship": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "$ref": "#/definitions/Product"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "reliesOn",
+            "bundled",
+            "targets",
+            "isTargeted"
+          ]
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

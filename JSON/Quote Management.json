@@ -1,0 +1,526 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Quote Management",
+    "version": "16.0.1",
+    "x-lastModified": "Oct 17, 2017 03:10AM PST",
+    "description": "The Quote API is one of the Pre-Ordering Management APIs. The customer Quote API provides a standardized mechanism for placing a customer quote with all of the necessary quote parameters."
+  },
+  "host": "api.orange.com",
+  "paths": {
+    "/quote": {
+      "get": {
+        "description": "This operation is used to retrieve quote information using filter criteria.  \nIf the version is not filled, by default only the most current version is returned.",
+        "tags": [
+          "quote"
+        ],
+        "summary": "find",
+        "operationId": "quoteList",
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "For attribute selection",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "quote state",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "quote category",
+            "type": "string",
+            "format": ""
+          },
+          {
+            "name": "andSoOn...",
+            "in": "query",
+            "description": "cf specification",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Quote"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "This operation is used to create a new quote (V1.0) or a new version of an existing quote (Vn.n n=> 1)",
+        "tags": [
+          "quote"
+        ],
+        "summary": "create",
+        "operationId": "quoteCreate",
+        "parameters": [
+          {
+            "name": "quote",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          }
+        }
+      }
+    },
+    "/quote/{quoteId}": {
+      "get": {
+        "description": "This operation is used to retrieve quote information using the ID. If the version is not filled, by default only the most current version is returned.",
+        "tags": [
+          "quote"
+        ],
+        "summary": "findById",
+        "operationId": "quotefindById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "quoteId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "This operation is used to modify quote and/or their items.  \nBy default PATCH will be acting only on the latest version of the Resource.",
+        "tags": [
+          "quote"
+        ],
+        "summary": "patch",
+        "operationId": "quotePatch",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "quoteId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "quote",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Quote"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Agreement": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Attachment": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "BillingAccount": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "Characteristic": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Price": {
+      "type": "object",
+      "properties": {
+        "percentage": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "productCharacteristic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Characteristic"
+          }
+        },
+        "productRelationship": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductRelationship"
+          }
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedParty"
+          }
+        }
+      }
+    },
+    "ProductOffering": {
+      "type": "object",
+      "properties": {
+        "bundledProductOffering": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOffering"
+          }
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductRelationship": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "$ref": "#/definitions/Product"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "Quote": {
+      "type": "object",
+      "properties": {
+        "agreement": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Agreement"
+          }
+        },
+        "billingAccount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BillingAccount"
+          }
+        },
+        "category": {
+          "type": "string"
+        },
+        "characteristic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Characteristic"
+          }
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "effectiveQuoteCompletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "externalId": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "note": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        },
+        "notificationContact": {
+          "type": "string"
+        },
+        "quoteCompletionDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quoteDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quoteItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuoteItem"
+          }
+        },
+        "quoteProductOfferingPrice": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuoteProductOfferingPrice"
+          }
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedParty"
+          }
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "InProgress",
+            "Pending",
+            "Cancelled",
+            "Approved",
+            "Accepted",
+            "Rejected"
+          ]
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "QuoteAuthorization": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attachment"
+          }
+        },
+        "authorizationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "authorizationSignatureRepresentation": {
+          "type": "string"
+        },
+        "authorizationState": {
+          "type": "string"
+        }
+      }
+    },
+    "QuoteItem": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attachment"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "itemQuoteProductOfferingPrice": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuoteProductOfferingPrice"
+          }
+        },
+        "note": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        },
+        "productOffering": {
+          "$ref": "#/definitions/ProductOffering"
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedParty"
+          }
+        },
+        "state": {
+          "type": "string"
+        }
+      }
+    },
+    "QuotePriceAlteration": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "QuoteProductOfferingPrice": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "$ref": "#/definitions/Price"
+        },
+        "priceCondition": {
+          "type": "string"
+        },
+        "priceType": {
+          "type": "string"
+        },
+        "quotePriceAlteration": {
+          "$ref": "#/definitions/QuotePriceAlteration"
+        },
+        "recurringChargePeriod": {
+          "type": "string"
+        }
+      }
+    },
+    "RelatedParty": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "ValidFor": {
+      "type": "object",
+      "properties": {
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

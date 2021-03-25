@@ -1,0 +1,1083 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Customer Management",
+    "version": "14.5.1",
+    "x-lastModified": "Oct 17, 2017 03:05AM PST",
+    "description": "Provides a standardized mechanism for customer and customer account management, such as creation, update, retrieval, deletion and notification of events."
+  },
+  "host": "env-0693795.jelastic.servint.net",
+  "paths": {
+    "/customer": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "customerFind",
+        "operationId": "customerFind",
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Customer",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Customer"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "customerCreate",
+        "operationId": "customerCreate",
+        "parameters": [
+          {
+            "name": "customer",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Customer",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "customerGet",
+        "operationId": "customerGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "customerUpdate",
+        "operationId": "customerUpdate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "customer",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success Customer",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "customerDelete",
+        "operationId": "customerDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "customerPatch",
+        "operationId": "customerPatch",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "customer",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Customer",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        }
+      }
+    },
+    "/customerAccount": {
+      "get": {
+        "tags": [
+          "customerAccount"
+        ],
+        "summary": "customerAccountFind",
+        "operationId": "customerAccountFind",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of CustomerAccount",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerAccount"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customerAccount"
+        ],
+        "summary": "customerAccountCreate",
+        "operationId": "customerAccountCreate",
+        "parameters": [
+          {
+            "name": "customerAccount",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CustomerAccount",
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        }
+      }
+    },
+    "/customerAccount/{customerAccountId}": {
+      "get": {
+        "tags": [
+          "customerAccount"
+        ],
+        "summary": "customerAccountGet",
+        "operationId": "customerAccountGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerAccountId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CustomerAccount",
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customerAccount"
+        ],
+        "summary": "customerAccountUpdate",
+        "operationId": "customerAccountUpdate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerAccountId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "customerAccount",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success CustomerAccount",
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customerAccount"
+        ],
+        "summary": "customerAccountDelete",
+        "operationId": "customerAccountDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerAccountId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "customerAccount"
+        ],
+        "summary": "customerAccountPatch",
+        "operationId": "customerAccountPatch",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "customerAccountId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "customerAccount",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success CustomerAccount",
+            "schema": {
+              "$ref": "#/definitions/CustomerAccount"
+            }
+          }
+        }
+      }
+    },
+    "/hub": {
+      "get": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubFind",
+        "operationId": "hubFind",
+        "responses": {
+          "200": {
+            "description": "List of Hub",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hub"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubCreate",
+        "operationId": "hubCreate",
+        "parameters": [
+          {
+            "name": "hub",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Hub",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        }
+      }
+    },
+    "/hub/{hubId}": {
+      "get": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubGet",
+        "operationId": "hubGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "hubId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hub",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "hub"
+        ],
+        "summary": "hubDelete",
+        "operationId": "hubDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "hubId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/paymentMean": {
+      "get": {
+        "tags": [
+          "paymentMean"
+        ],
+        "summary": "paymentMeanFind",
+        "operationId": "paymentMeanFind",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of PaymentMean",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PaymentMean"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "paymentMean"
+        ],
+        "summary": "paymentMeanCreate",
+        "operationId": "paymentMeanCreate",
+        "parameters": [
+          {
+            "name": "paymentMean",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "PaymentMean",
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        }
+      }
+    },
+    "/paymentMean/{paymentMeanId}": {
+      "get": {
+        "tags": [
+          "paymentMean"
+        ],
+        "summary": "paymentMeanGet",
+        "operationId": "paymentMeanGet",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "paymentMeanId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "fields",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PaymentMean",
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "paymentMean"
+        ],
+        "summary": "paymentMeanUpdate",
+        "operationId": "paymentMeanUpdate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "paymentMeanId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "paymentMean",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success PaymentMean",
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "paymentMean"
+        ],
+        "summary": "paymentMeanDelete",
+        "operationId": "paymentMeanDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "paymentMeanId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "paymentMean"
+        ],
+        "summary": "paymentMeanPatch",
+        "operationId": "paymentMeanPatch",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "paymentMeanId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "paymentMean",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success PaymentMean",
+            "schema": {
+              "$ref": "#/definitions/PaymentMean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BankAccount": {
+      "type": "object",
+      "properties": {
+        "accountHolder": {
+          "type": "string"
+        },
+        "bIC": {
+          "type": "string"
+        },
+        "domiciliation": {
+          "type": "string"
+        },
+        "iBAN": {
+          "type": "string"
+        }
+      }
+    },
+    "Characteristic": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "contactMedium": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContactMedium"
+          }
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactType": {
+          "type": "string"
+        },
+        "partyRoleType": {
+          "type": "string"
+        },
+        "relatedParty": {
+          "$ref": "#/definitions/Reference"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "ContactMedium": {
+      "type": "object",
+      "properties": {
+        "medium": {
+          "$ref": "#/definitions/Medium"
+        },
+        "preferred": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "CreditCard": {
+      "type": "object",
+      "properties": {
+        "creditCardHolder": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "number": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "characteristic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Characteristic"
+          }
+        },
+        "contactMedium": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContactMedium"
+          }
+        },
+        "customerAccount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAccount"
+          }
+        },
+        "customerCreditProfile": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerCreditProfile"
+          }
+        },
+        "customerRank": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "paymentMean": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentMean"
+          }
+        },
+        "relatedParty": {
+          "$ref": "#/definitions/Reference"
+        },
+        "status": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "CustomerAccount": {
+      "type": "object",
+      "properties": {
+        "accountType": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Contact"
+          }
+        },
+        "creditLimit": {
+          "type": "string"
+        },
+        "customer": {
+          "$ref": "#/definitions/CustomerRef"
+        },
+        "customerAccountBalance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAccountBalance"
+          }
+        },
+        "customerAccountRelationship": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAccountRelationship"
+          }
+        },
+        "customerAccountTaxExemption": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAccountTaxExemption"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "type": "string"
+        },
+        "paymentPlan": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentPlan"
+          }
+        },
+        "pin": {
+          "type": "string"
+        },
+        "receivableBalance": {
+          "type": "number",
+          "format": "float"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerAccountBalance": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "float"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "CustomerAccountRef": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerAccountRelationship": {
+      "type": "object",
+      "properties": {
+        "customerAccount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAccountRef"
+          }
+        },
+        "relationshipType": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "CustomerAccountTaxExemption": {
+      "type": "object",
+      "properties": {
+        "certificateNumber": {
+          "type": "string"
+        },
+        "issuingJurisdiction": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "CustomerCreditProfile": {
+      "type": "object",
+      "properties": {
+        "creditProfileDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "creditRiskRating": {
+          "type": "string"
+        },
+        "creditScore": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "CustomerRef": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Hub": {
+      "type": "object",
+      "properties": {
+        "callback": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "Medium": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "stateOrProvince": {
+          "type": "string"
+        },
+        "streetOne": {
+          "type": "string"
+        },
+        "streetTwo": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentMean": {
+      "type": "object",
+      "properties": {
+        "bankAccount": {
+          "$ref": "#/definitions/BankAccount"
+        },
+        "creditCard": {
+          "$ref": "#/definitions/CreditCard"
+        },
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "relatedParty": {
+          "$ref": "#/definitions/Reference"
+        },
+        "type": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "PaymentMeanRef": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentPlan": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "float"
+        },
+        "numberOfPayments": {
+          "type": "string"
+        },
+        "paymentFrequency": {
+          "type": "string"
+        },
+        "paymentMean": {
+          "$ref": "#/definitions/PaymentMeanRef"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "validFor": {
+          "$ref": "#/definitions/ValidFor"
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "ValidFor": {
+      "type": "object",
+      "properties": {
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
